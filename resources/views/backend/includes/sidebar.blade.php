@@ -56,6 +56,13 @@
                             @lang('menus.backend.log-viewer.dashboard')
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ active_class(Active::checkUriPattern('admin/audits')) }}" href="/audits">
+                            Audit Logs
+                        </a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link {{ active_class(Active::checkUriPattern('admin/log-viewer/logs*')) }}" href="{{ route('log-viewer::logs.list') }}">
                             @lang('menus.backend.log-viewer.logs')
