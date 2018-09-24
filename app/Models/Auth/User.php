@@ -3,6 +3,7 @@
 namespace App\Models\Auth;
 
 use App\Models\Traits\Uuid;
+use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Auth\Traits\Scope\UserScope;
@@ -16,7 +17,7 @@ use App\Models\Auth\Traits\Relationship\UserRelationship;
 /**
  * Class User.
  */
-class User extends Authenticatable
+class User extends Authenticatable implements Auditable
 {
     use HasRoles,
         Notifiable,
@@ -26,7 +27,8 @@ class User extends Authenticatable
         UserMethod,
         UserRelationship,
         UserScope,
-        Uuid;
+        Uuid,
+        \OwenIt\Auditing\Auditable;
 
     /**
      * The attributes that are mass assignable.
