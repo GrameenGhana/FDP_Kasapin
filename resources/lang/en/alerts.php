@@ -14,6 +14,12 @@ return [
     */
 
     'backend' => [
+
+        //added
+        'permissions' => [
+            'created' => 'The permission was successfully created',
+
+        ],
         'roles' => [
             'created' => 'The role was successfully created.',
             'deleted' => 'The role was successfully deleted.',

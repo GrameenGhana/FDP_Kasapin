@@ -64,4 +64,16 @@ Route::group([
     Route::group(['namespace' => 'Role'], function () {
         Route::resource('role', 'RoleController', ['except' => ['show']]);
     });
+
+    /**
+       Permission Management
+     *
+     **/
+    Route::group(['namespace' => 'Permission'], function() {
+        Route::resource('permission', 'PermissionController');
+    });
+
+    /**
+     *Country Administration management
+     */
 });

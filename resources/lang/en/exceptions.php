@@ -15,6 +15,10 @@ return [
 
     'backend' => [
         'access' => [
+            //added
+            'permissions' => [
+                'create_error' => 'There was a problem creating this Permission. Please try again.'
+            ],
             'roles' => [
                 'already_exists'    => 'That role already exists. Please choose a different name.',
                 'cant_delete_admin' => 'You can not delete the Administrator role.',
