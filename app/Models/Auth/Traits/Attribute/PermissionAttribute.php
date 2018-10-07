@@ -1,6 +1,6 @@
 <?php
 /**
- * Permission Trait
+ *  Trait PermissionAttribute
  * User: spomega
  * Date: 10/3/18
  * Time: 10:56 AM
@@ -38,10 +38,12 @@ trait PermissionAttribute
      */
     public function getActionButtonsAttribute()
     {
-        /**
+       /*
         if ($this->id == 1) {
             return 'N/A';
-        } **/
+        }
+           */
+
 
         return '<div class="btn-group btn-group-sm" role="group" aria-label="'.__('labels.backend.access.users.user_actions').'">
 			  '.$this->edit_button.'

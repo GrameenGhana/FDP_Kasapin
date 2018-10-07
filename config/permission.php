@@ -69,6 +69,16 @@ return [
          */
 
         'role_has_permissions' => 'role_has_permissions',
+        /*
+         * country table
+         * */
+        'country' => 'country_c',
+
+        /*
+         * country_admin_levels
+         *
+         * */
+        'country_has_admin_levels' =>'country_has_admin_level_c',
     ],
 
     /*

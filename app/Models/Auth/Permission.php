@@ -6,10 +6,14 @@ use App\Models\Auth\Traits\Attribute\PermissionAttribute;
 use App\Models\Auth\Traits\Method\PermissionMethod;
 
 
+/**
+ * Class Permission
+ *
+ */
+
+
 class Permission extends \Spatie\Permission\Models\Permission
 {
-    //
-    Use PermissionAttribute,
-        PermissionMethod;
+   use PermissionAttribute, PermissionMethod;
 
 }

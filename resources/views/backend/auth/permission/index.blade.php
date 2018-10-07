@@ -32,7 +32,7 @@
                           <tr>
                               <td>{{ucwords($permission->name)}}</td>
                               <td>{{ucwords($permission->guard_name)}}</td>
-                              <td>{!!$permission->action_buttons !!}</td>
+                              <td> {!! $permission->action_buttons !!}</td>
                           </tr>
                        @endforeach
                    </tbody>

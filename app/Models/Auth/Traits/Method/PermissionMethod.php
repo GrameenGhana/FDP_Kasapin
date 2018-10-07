@@ -7,7 +7,7 @@
  */
 
 namespace App\Models\Auth\Traits\Method;
-trait PermissionMethod{
+trait PermissionMethod {
     /**
      * @return mixed
      */

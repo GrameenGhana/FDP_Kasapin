@@ -3,7 +3,7 @@
 namespace App\Repositories\Backend\Auth;
 
 use App\Repositories\BaseRepository;
-use Spatie\Permission\Models\Permission;
+use App\Models\Auth\Permission;
 use Illuminate\Support\Facades\DB;
 use App\Exceptions\GeneralException;
 
@@ -44,6 +44,39 @@ class PermissionRepository extends BaseRepository
             }
 
             throw new GeneralException(trans('exceptions.backend.access.permissions.create_error'));
+        });
+    }
+
+    /**
+     * @param Permission  $permission
+     * @param array $data
+     *
+     * @return mixed
+     * @throws GeneralException
+     */
+    public function update(Permission  $permission, array $data)
+    {
+
+
+        // If the name is changing make sure it doesn't already exist
+        if ($permission->name !== strtolower($data['name'])) {
+            if ($this->permissionExists($data['name'])) {
+                throw new GeneralException('A permission already exists with the name '.$data['name']);
+            }
+        }
+
+
+        return DB::transaction(function () use ($permission, $data) {
+            if ($permission->update([
+                'name' => strtolower($data['name']),
+            ])) {
+
+               // event(new RoleUpdated($permission));
+
+                return $permission;
+            }
+
+            throw new GeneralException(trans('exceptions.backend.access.permissions.update_error'));
         });
     }
 

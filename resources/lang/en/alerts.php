@@ -17,8 +17,9 @@ return [
 
         //added
         'permissions' => [
-            'created' => 'The permission was successfully created',
-
+            'created' => 'The permission was successfully created.',
+            'updated' => 'The permission was successfully updated.',
+            'deleted' => 'The permission was successfully deleted.',
         ],
         'roles' => [
             'created' => 'The role was successfully created.',

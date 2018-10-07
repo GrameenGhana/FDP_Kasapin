@@ -17,7 +17,8 @@ return [
         'access' => [
             //added
             'permissions' => [
-                'create_error' => 'There was a problem creating this Permission. Please try again.'
+                'create_error' => 'There was a problem creating this permission. Please try again.',
+                'update_error'      => 'There was a problem updating this permission. Please try again.',
             ],
             'roles' => [
                 'already_exists'    => 'That role already exists. Please choose a different name.',
