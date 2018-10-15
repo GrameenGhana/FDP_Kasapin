@@ -43,6 +43,14 @@ return [
                 'management' => 'Permission Management',
                 'main'       => 'Permissions',
             ],
+
+            'countries' => [
+                'all'       => 'All Countries',
+                'create'    => 'Create Country',
+                'edit'      => 'Edit Country',
+                'management'=> 'Country Management',
+                'main'      => 'Location',
+            ]
         ],
 
         'log-viewer' => [

@@ -14,7 +14,7 @@ class CreateCountryTable extends Migration
     public function up()
     {
         $tableNames = config('permission.table_names');
-        Schema::create($tableNames['country'], function (Blueprint $table) {
+        Schema::create('country_c', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->decimal('avg_gate_price',16,2);
@@ -33,6 +33,6 @@ class CreateCountryTable extends Migration
     public function down()
     {
         $tableNames = config('permission.table_names');
-        Schema::dropIfExists($tableNames['country']);
+        Schema::dropIfExists('country_c');
     }
 }

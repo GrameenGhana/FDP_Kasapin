@@ -21,6 +21,7 @@
     {{ style(mix('css/backend.css')) }}
 
     @stack('after-styles')
+
 </head>
 
 <body class="{{ config('backend.body_classes') }}">
@@ -52,9 +53,33 @@
 
     <!-- Scripts -->
     @stack('before-scripts')
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     {!! script(mix('js/manifest.js')) !!}
     {!! script(mix('js/vendor.js')) !!}
     {!! script(mix('js/backend.js')) !!}
     @stack('after-scripts')
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $( "select" )
+            .change(function () {
+                var str = "";
+                var level = 0;
+              // $("div#add_level").remove();
+                $( "select option:selected" ).each(function() {
+                    str += $( this ).text() + " ";
+                    level = parseInt(str);
+
+                    for(i=1;i<=level;i++)
+                    {
+                        alert(""+i) ;
+                        $("div#add_level").append('<label for='+'level'+i+' '+'class='+'col-md-2 form-control-label'+'>'+'level'+' '+i+'</label>')
+                            .append('<input type="text" name=levels[] required/><br>'+'\n');
+                    }
+                });
+                //$( "div" ).text( str );
+                alert(str);
+            })
+            .change();
+    </script>
 </body>
 </html>

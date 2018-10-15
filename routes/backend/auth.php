@@ -76,4 +76,10 @@ Route::group([
     /**
      *Country Administration management
      */
+    Route::group(['namespace' => 'Country'], function() {
+        Route::resource('country', 'CountryController');
+    });
+
+
+
 });

@@ -62,6 +62,18 @@ return [
                     'group'            => 'Group',
                 ],
             ],
+            //Newly added
+            'countries' => [
+                'create' => 'Create Country',
+                'edit'   => 'Edit Country',
+                'management' => 'Country Management',
+
+                'table' => [
+                    'country'     => 'Country',
+                    'level'       => 'Admin Level',
+                ],
+
+            ],
 
             'users' => [
                 'active'              => 'Active Users',

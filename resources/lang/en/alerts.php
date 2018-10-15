@@ -21,6 +21,12 @@ return [
             'updated' => 'The permission was successfully updated.',
             'deleted' => 'The permission was successfully deleted.',
         ],
+        //added
+        'countries' => [
+            'created' => 'The country was successfully created.',
+            'updated' => 'The country was successfully updated.',
+            'deleted' => 'The country was successfully deleted.',
+        ],
         'roles' => [
             'created' => 'The role was successfully created.',
             'deleted' => 'The role was successfully deleted.',

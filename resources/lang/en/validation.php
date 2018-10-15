@@ -183,6 +183,14 @@ return [
                     'timezone'                => 'Timezone',
                     'language'                => 'Language',
                 ],
+                //New
+                'countries' => [
+                    'name' => 'Country Name',
+                    'iso'  => 'ISO Code',
+                    'admin'=>  'Administration Levels',
+                    'average_gate' => 'Average Gate Price',
+                    'currency' => 'Currency'
+                ],
             ],
         ],
 

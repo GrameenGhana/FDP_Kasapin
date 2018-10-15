@@ -48,6 +48,29 @@
                 </li>
             @endif
 
+            @if($logged_in_user->isAdmin())
+                <li class="nav-item nav-dropdown {{ active_class(Active::checkUriPattern('admin/auth*'), 'open') }}">
+                    <a class="nav-link nav-dropdown-toggle {{ active_class(Active::checkUriPattern('admin/auth*')) }}" href="#">
+                        <i class="nav-icon icon-location-pin"></i> @lang('menus.backend.access.countries.main')
+
+                        @if ($pending_approval > 0)
+                            <span class="badge badge-danger">{{ $pending_approval }}</span>
+                        @endif
+                    </a>
+
+                    <ul class="nav-dropdown-items">
+                        <li class="nav-item">
+                            <a class="nav-link {{ active_class(Active::checkUriPattern('admin/auth/country*')) }}" href="{{ route('admin.auth.country.index') }}">
+                                @lang('labels.backend.access.countries.management')
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
+
+
+            @endif
+
             <li class="divider"></li>
 
             <li class="nav-item nav-dropdown {{ active_class(Active::checkUriPattern('admin/log-viewer*'), 'open') }}">
