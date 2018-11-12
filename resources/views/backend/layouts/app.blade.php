@@ -60,7 +60,7 @@
     @stack('after-scripts')
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script>
-        $( "select" )
+        $( "select#admin_level" )
             .change(function () {
                 var str = "";
                 var level = 0;
@@ -80,6 +80,28 @@
                 alert(str);
             })
             .change();
+
+        $( "select#admin_level_1" )
+            .change(function () {
+                $( "select option:selected" ).each(function() {
+                    var str = $(this).val();
+
+                    alert(str);
+
+                    if(str == '1'){
+                        $("#parent").val('none');
+                    }
+                    else {
+
+                       $.get('http://127.0.0.1:8000/admin/cadmin/upper/2/17',function(data,status){
+                           console.log(data,status);
+                       });
+                    }
+
+
+                });
+            }).change();
+
     </script>
 </body>
 </html>

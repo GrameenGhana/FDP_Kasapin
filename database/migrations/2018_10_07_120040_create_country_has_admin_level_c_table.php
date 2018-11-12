@@ -18,6 +18,7 @@ class CreateCountryHasAdminLevelCTable extends Migration
             $table->integer('country_id')->unsigned();
             $table->foreign('country_id')->references('id')->on('country_c');
             $table->string('name');
+            $table->integer('level');
             $table->timestamps();
         });
     }

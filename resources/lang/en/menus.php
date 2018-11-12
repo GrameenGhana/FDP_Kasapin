@@ -50,6 +50,7 @@ return [
                 'edit'      => 'Edit Country',
                 'management'=> 'Country Management',
                 'main'      => 'Location',
+                'admin'     => 'Country Administration Management'
             ]
         ],
 

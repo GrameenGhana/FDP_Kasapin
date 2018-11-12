@@ -2,7 +2,11 @@
 
 namespace App\Models\Auth;
 
+use App\Models\Auth\Traits\Attribute\CountryAttribute;
+use App\Models\Auth\Traits\Method\CountryMethod;
+use App\Models\Auth\Traits\Relationship\CountryRelationship;
 use Illuminate\Database\Eloquent\Model;
+
 
 class Country extends Model
 {
@@ -14,5 +18,10 @@ class Country extends Model
 
     protected $table = 'country_c';
 
-    protected  $fillable = ['name','currency','iso_code'];
+    protected  $fillable = ['name','currency','iso_code','avg_gate_price','admin_level'];
+
+    use CountryAttribute,CountryMethod,CountryRelationship;
+
+
+
 }

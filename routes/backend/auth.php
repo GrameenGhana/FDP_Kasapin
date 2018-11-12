@@ -1,5 +1,5 @@
 <?php
-
+//Route::get('cadmin/upper/{level}','CountryController@getUpperLevelData');
 /**
  * All route names are prefixed with 'admin.auth'.
  */
@@ -78,6 +78,10 @@ Route::group([
      */
     Route::group(['namespace' => 'Country'], function() {
         Route::resource('country', 'CountryController');
+        Route::get('cadmin/add/{country}', 'CountryController@createCountryAdmin')->name('country.admin.add');
+        Route::post('cadmin/create', 'CountryController@storeCountryAdmin')->name('country.admin.create');
+        Route::get('cadmin/upper/{level}','CountryController@getUpperLevelData');
+
     });
 
 

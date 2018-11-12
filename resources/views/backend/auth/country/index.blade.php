@@ -24,17 +24,24 @@
                             <tr>
                                 <th>@lang('labels.backend.access.countries.table.country')</th>
                                 <th>@lang('labels.backend.access.countries.table.level')</th>
+                                <th>@lang('labels.backend.access.countries.table.iso')</th>
+                                <th>@lang('labels.backend.access.countries.table.currency')</th>
+                                <th>@lang('labels.backend.access.countries.table.gate_price')</th>
                                 <th>@lang('labels.general.actions')</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($countries as $country)
                                 <tr>
-                                    <td>{{ucwords($$country->name)}}</td>
-                                    <td>{{ucwords($$country->admin_level)}}</td>
-                                    <td> {!! $country->action_buttons !!}</td>
+                                    <td>{{ucwords($country->name)}}</td>
+                                    <td>{{ucwords($country->admin_level)}}</td>
+                                    <td>{{ucwords($country->iso_code)}}</td>
+                                    <td>{{ucwords($country->currency)}}</td>
+                                    <td>{{ucwords($country->avg_gate_price)}}</td>
+                                    <td>{!! $country->action_buttons !!}</td>
                                 </tr>
                             @endforeach
+
                             </tbody>
                         </table>
                     </div>

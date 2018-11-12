@@ -32,7 +32,7 @@ class CreateCountryTable extends Migration
      */
     public function down()
     {
-        $tableNames = config('permission.table_names');
+
         Schema::dropIfExists('country_c');
     }
 }

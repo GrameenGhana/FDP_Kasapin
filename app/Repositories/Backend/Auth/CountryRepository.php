@@ -43,8 +43,8 @@ class CountryRepository extends BaseRepository
 
 
         return DB::transaction(function () use ($data) {
-            $country = parent::create(['name' => strtolower($data['name']),"avg_gate_price" =>(double)$data["avg_gate_price"],
-                "currency"=>$data['currency'],'iso_code'=> $data['iso_code'],'admin_level' => (int)$data['admin_level']]);
+            $country = parent::create(['name' => $data['name'],"avg_gate_price" =>(double)$data["avg_gate_price"],
+                "currency"=> strtoupper($data['currency']),'iso_code'=>  strtoupper($data['iso_code']),'admin_level' => (int)$data['admin_level']]);
 
 
             if($country)
@@ -57,6 +57,42 @@ class CountryRepository extends BaseRepository
         });
     }
 
+    /**
+     * @param Permission  $permission
+     * @param array $data
+     *
+     * @return mixed
+     * @throws GeneralException
+     */
+    public function update(Country $country, array $data)
+    {
+
+
+        // If the name is changing make sure it doesn't already exist
+        if ($country->name !== $data['name']) {
+            if ($this->countryExists($data['name'])) {
+                throw new GeneralException('A Country already exists with the name '.$data['name']);
+            }
+        }
+
+
+        return DB::transaction(function () use ($country, $data) {
+            if ($country->update([
+                'name' => $data['name'],
+                "avg_gate_price" =>(double)$data["avg_gate_price"],
+                "currency"=> strtoupper($data['currency']),'iso_code'=>  strtoupper($data['iso_code']),
+            ])) {
+
+                // event(new RoleUpdated($permission));
+
+                return $country;
+            }
+
+            throw new GeneralException(trans('exceptions.backend.access.permissions.update_error'));
+        });
+    }
+
+
 
     /**
      * @param $name
@@ -66,7 +102,7 @@ class CountryRepository extends BaseRepository
     protected function countryExists($name) : bool
     {
         return $this->model
-                ->where('name', strtolower($name))
+                ->where('name', $name)
                 ->count() > 0;
     }
 

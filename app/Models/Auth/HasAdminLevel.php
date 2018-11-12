@@ -15,5 +15,5 @@ class HasAdminLevel extends Model
 
     protected $table = 'country_has_admin_level_c';
 
-    protected  $fillable = ['name'];
+    protected  $fillable = ['name','country_id'];
 }

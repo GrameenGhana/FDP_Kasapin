@@ -189,7 +189,9 @@ return [
                     'iso'  => 'ISO Code',
                     'admin'=>  'Administration Levels',
                     'average_gate' => 'Average Gate Price',
-                    'currency' => 'Currency'
+                    'currency' => 'Currency',
+                    'parent' => 'Parent',
+                    'admin_name' => 'name'
                 ],
             ],
         ],

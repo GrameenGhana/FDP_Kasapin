@@ -2,20 +2,22 @@
 /**
  * Created by PhpStorm.
  * User: spomega
- * Date: 10/15/18
- * Time: 10:29 AM
+ * Date: 11/2/18
+ * Time: 10:34 AM
  */
 
 namespace App\Repositories\Backend\Auth;
 
 
-use App\Models\Auth\HasAdminLevel;
+
+use App\Models\Auth\Country;
+use App\Models\Auth\CountryAdminLevel;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
-use App\Exceptions\GeneralException;
 
-class HasAdminLevelRepository extends BaseRepository
+class CountryAdminLevelRepository extends  BaseRepository
 {
+
     /**
      * Specify Model class name.
      *
@@ -23,29 +25,44 @@ class HasAdminLevelRepository extends BaseRepository
      */
     public function model()
     {
-        return HasAdminLevel::class;
+        return CountryAdminLevel::class;
     }
 
 
     /**
      * @param array $data
      *
-     * @return  HasAdminLevel
+     * @return  CountryAdminLevel
      * @throws GeneralException
      */
-    public function create(array $data) : HasAdminLevel
+    public function create(array $data) : CountryAdminLevel
     {
 
 
         // Make sure it doesn't already exist
-        /*
+
         if ($this->adminLevelExists($data['name'])) {
             throw new GeneralException('A level already exists with the name '.$data['name']);
         }
-              */
+
 
         return DB::transaction(function () use ($data) {
-            $level = parent::create(['name' => strtolower($data['name']),'country_id'=>(int)$data['country_id']]);
+            $parent_id = 0;
+            if($data['parent'] == 'none'){
+                $parent_id = 0;
+            }
+            else{
+               $parent_id = (int)$data['parent'];
+            }
+
+            $type = Country::findOrFail((int)$data['country_id'])->countryAdmin()->where('level',(int)$data['admin_level_1'])->first();
+
+            //dd($type->name);
+
+            $level = parent::create(['name' => strtolower($data['name']),'country_id'=>(int)$data['country_id'],
+                'parent_id'=>$parent_id,
+                'type'=>$type->name
+                ]);
 
             if($level) {
                 return $level;
@@ -54,7 +71,11 @@ class HasAdminLevelRepository extends BaseRepository
 
             throw new GeneralException(trans('exceptions.backend.access.countries.create_error'));
         });
+
+
+
     }
+
 
 
     /**
@@ -68,5 +89,7 @@ class HasAdminLevelRepository extends BaseRepository
                 ->where('name', strtolower($name))
                 ->count() > 0;
     }
+
+
 
 }

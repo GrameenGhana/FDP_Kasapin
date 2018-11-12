@@ -226,9 +226,9 @@ class CountryController extends Controller
         $upperlevel =  $lev - 1;
         $levelname =  $this->hasAdminLevelRepository->where('level',$upperlevel,'=')->
                       where('country_id',$country,'=')->get();
-        $details = $this->countryAdminLevelRepository->where('type',$levelname[0]->name,'')->get();
-        dd($details);
-        return  $details;
+        $details = $this->countryAdminLevelRepository->where('type',$levelname[0]->name,'=')->get();
+        //dd($details);
+        return $details;
     }
 
 

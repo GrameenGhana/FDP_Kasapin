@@ -67,10 +67,14 @@ return [
                 'create' => 'Create Country',
                 'edit'   => 'Edit Country',
                 'management' => 'Country Management',
+                'admin' => 'Country Administration',
 
                 'table' => [
                     'country'     => 'Country',
                     'level'       => 'Admin Level',
+                    'iso'         => 'ISO Code',
+                    'currency'    => 'Currency',
+                    'gate_price'  =>  'Average Gate Price',
                 ],
 
             ],

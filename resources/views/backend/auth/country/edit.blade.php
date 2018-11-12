@@ -1,11 +1,9 @@
 @extends('backend.layouts.app')
 
-@section('Title', __('labels.backend.access.countries.management') .' | '.__('labels.backend.access.countries.create'))
-
+@section('Title', __('labels.backend.access.countries.management') .' | '.__('labels.backend.access.countries.edit'))
 
 @section('content')
-
-    {{ html()->form('POST', route('admin.auth.country.store'))->class('form-horizontal')->open() }}
+    {{ html()->modelForm($country, 'PATCH', route('admin.auth.country.update', $country))->class('form-horizontal')->open() }}
 
     <div class="card">
         <div class="card-body">
@@ -13,7 +11,7 @@
                 <div class="col-sm-5">
                     <h4 class="card-title mb-0">
                         @lang('labels.backend.access.countries.management')
-                        <small class="text-muted">@lang('labels.backend.access.countries.create')</small>
+                        <small class="text-muted">@lang('labels.backend.access.countries.edit')</small>
                     </h4>
                 </div><!--col-->
             </div><!--row-->
@@ -50,19 +48,19 @@
                         </div><!--col-->
                     </div>
                     <div class="form-group row">
-                    {{html()->label(__('validation.attributes.backend.access.countries.average_gate'))
-                   ->class('col-md-2 form-control-label')
-                   ->for('avg_gate_price')}}
+                        {{html()->label(__('validation.attributes.backend.access.countries.average_gate'))
+                       ->class('col-md-2 form-control-label')
+                       ->for('avg_gate_price')}}
 
-                    <div class="col-md-10">
-                        {{ html()->text('avg_gate_price')
-                            ->class('form-control')
-                            ->placeholder(__('validation.attributes.backend.access.countries.average_gate'))
-                            ->attribute('maxlength', 191)
-                            ->required()
-                            ->autofocus() }}
-                    </div><!--col-->
-                </div>
+                        <div class="col-md-10">
+                            {{ html()->text('avg_gate_price')
+                                ->class('form-control')
+                                ->placeholder(__('validation.attributes.backend.access.countries.average_gate'))
+                                ->attribute('maxlength', 191)
+                                ->required()
+                                ->autofocus() }}
+                        </div><!--col-->
+                    </div>
                     <div class="form-group row">
                         {{html()->label(__('validation.attributes.backend.access.countries.currency'))
                         ->class('col-md-2 form-control-label')
@@ -76,19 +74,6 @@
                                 ->autofocus() }}
                         </div><!--col-->
                     </div>
-                    <div class="form-group row">
-                        {{html()->label(__('validation.attributes.backend.access.countries.admin'))
-                        ->class('col-md-2 form-control-label')
-                        ->for('admin_level')}}
-
-                        <div class="col-md-10">
-                            {{ html()->select('admin_level')->options(['1'=>'1','2','3','4','5','6','7'])
-                                ->class('form-control')}}
-                        </div><!--col-->
-                    </div>
-                    <div id="add_level" class="form-group row">
-
-                    </div>
                 </div>
             </div>
         </div><!--card-body-->
@@ -99,7 +84,7 @@
                 </div><!--col-->
 
                 <div class="col text-right">
-                    {{ form_submit(__('buttons.general.crud.create')) }}
+                    {{ form_submit(__('buttons.general.crud.update')) }}
                 </div><!--col-->
 
 
@@ -109,10 +94,6 @@
 
     </div><!--card-->
 
-    {{ html()->form()->close() }}
-
-
-
-
+    {{ html()->closeModelForm() }}
 @endsection
 
