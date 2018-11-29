@@ -8,6 +8,7 @@
 
 namespace App\Models\Auth\Traits\Relationship;
 
+use App\Models\Auth\FormAssignation;
 use App\Models\Auth\HasAdminLevel;
 
 trait CountryRelationship
@@ -20,4 +21,23 @@ trait CountryRelationship
     {
        return $this->hasMany(HasAdminLevel::class,'country_id','id');
     }
+
+    /**
+     * @return mixed
+     */
+    public function formAssignation()
+    {
+        return $this->hasMany(FormAssignation::class,'country_id','id');
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function formTranslation()
+    {
+        return $this->hasMany(FormTranslation::class,'country_id','id');
+    }
+
+
 }
