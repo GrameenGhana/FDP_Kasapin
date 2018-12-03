@@ -90,14 +90,16 @@ class CountryController extends Controller
 
         if($country)
         {
+             $count = 0;
              $level = array($request->only('levels'));
+
              $level1 = $level[0];
 
              $levels = $level1["levels"];
-
+            // dd($levels);
              foreach ($levels  as $level)
              {
-                 $this->hasAdminLevelRepository->create(['country_id'=>$country->id,'name'=>$level]);
+                 $this->hasAdminLevelRepository->create(['country_id'=>$country->id,'name'=>$level,'level'=>++$count]);
              }
 
          }
@@ -182,11 +184,7 @@ class CountryController extends Controller
         }
 
 
-
         return redirect()->route('admin.auth.country.index')->withFlashSuccess(__('alerts.backend.countries.created'));
-
-
-
     }
 
     /**
@@ -204,8 +202,6 @@ class CountryController extends Controller
         $country_id = $country->id;
        // $none = 'none';
 
-
-
         $adata = array();
 
          foreach ($admin_data as $data)
@@ -219,6 +215,7 @@ class CountryController extends Controller
     }
 
 
+
     public function getUpperLevelData($level,$country)
     {
         $lev = (int)$level;
@@ -228,7 +225,7 @@ class CountryController extends Controller
                       where('country_id',$country,'=')->get();
         $details = $this->countryAdminLevelRepository->where('type',$levelname[0]->name,'=')->get();
         //dd($details);
-        return $details;
+        return response()->json($details);
     }
 
 

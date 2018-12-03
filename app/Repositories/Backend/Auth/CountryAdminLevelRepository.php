@@ -14,6 +14,7 @@ use App\Models\Auth\Country;
 use App\Models\Auth\CountryAdminLevel;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use App\Exceptions\GeneralException;
 
 class CountryAdminLevelRepository extends  BaseRepository
 {
@@ -48,6 +49,7 @@ class CountryAdminLevelRepository extends  BaseRepository
 
         return DB::transaction(function () use ($data) {
             $parent_id = 0;
+           // dd($data['parent']);
             if($data['parent'] == 'none'){
                 $parent_id = 0;
             }
@@ -57,9 +59,9 @@ class CountryAdminLevelRepository extends  BaseRepository
 
             $type = Country::findOrFail((int)$data['country_id'])->countryAdmin()->where('level',(int)$data['admin_level_1'])->first();
 
-            //dd($type->name);
 
-            $level = parent::create(['name' => strtolower($data['name']),'country_id'=>(int)$data['country_id'],
+
+           $level = parent::create(['name' => strtolower($data['name']),'country_id'=>(int)$data['country_id'],
                 'parent_id'=>$parent_id,
                 'type'=>$type->name
                 ]);

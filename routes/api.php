@@ -15,5 +15,32 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
    return $request->user();
+});
+
+
+Route::group(['prefix'=>'v1'],function(){
+
+
+    Route::group(['namespace'=>'Api','prefix'=>'auth/user'],function(){
+
+     Route::post('login','LoginController@login');
+
+     //routes that need authentication
+     Route::group(['middleware'=>'jwt.auth'],function (){
+         Route::get('details', function(Request $request) {
+             return auth()->user();
+         });
+
+         Route::get('survey/{country}','SurveyController@question');
+
+     });
+
+    });
+
+
+
 
 });
+
+
+

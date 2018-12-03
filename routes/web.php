@@ -31,3 +31,12 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
      */
     include_route_files(__DIR__.'/backend/');
 });
+
+/*
+ * API Routes
+ * Namespaces indicate folder structure
+ */
+
+//Route::group(['prefix'=>'api'],function() {
+    //include_route_files(__DIR__.'/api/');
+//});

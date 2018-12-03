@@ -8,12 +8,12 @@ class HasAdminLevel extends Model
 {
     //
     /**
-     * The table associated with the country model.
+     * The table associated with the hasadminlevel model.
      *
      * @var string
      */
 
     protected $table = 'country_has_admin_level_c';
 
-    protected  $fillable = ['name','country_id'];
+    protected  $fillable = ['name','country_id','level'];
 }

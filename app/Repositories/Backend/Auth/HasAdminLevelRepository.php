@@ -45,7 +45,7 @@ class HasAdminLevelRepository extends BaseRepository
               */
 
         return DB::transaction(function () use ($data) {
-            $level = parent::create(['name' => strtolower($data['name']),'country_id'=>(int)$data['country_id']]);
+            $level = parent::create(['name' => strtolower($data['name']),'country_id'=>(int)$data['country_id'],'level'=>$data['level']]);
 
             if($level) {
                 return $level;

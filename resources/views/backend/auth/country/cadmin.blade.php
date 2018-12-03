@@ -29,7 +29,7 @@
                                 ->class('form-control')}}
                         </div><!--col-->
                     </div>
-                    <div class="form-group row">
+                    <div id="parent_div" class="form-group row">
                         {{html()->label(__('validation.attributes.backend.access.countries.parent'))
                         ->class('col-md-2 form-control-label')
                         ->for('parent')}}
@@ -43,9 +43,14 @@
                                 ->autofocus() }}
                         </div><!--col-->
 
+
+                    </div>
+                    <div id='level_div' class="form-group row">
+                        {{html()->label(__('validation.attributes.backend.access.countries.parent'))
+                      ->class('col-md-2 form-control-label')
+                      ->for('admin_select')}}
                         <div class="col-md-10">
-                            {{ html()->select('admin_select')->options($admininfo)
-                                ->class('form-control')->style('display:none')}}
+                            {{ html()->select('admin_select')->class('form-control')}}
                         </div><!--col-->
                     </div>
                     <div class="form-group row">

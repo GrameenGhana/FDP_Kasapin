@@ -37,7 +37,7 @@ trait CountryAttribute
      */
     public function  getAdminButtonAttribute()
     {
-        return '<a href="'.route('admin.auth.country.admin.add', $this).'" class="btn btn-primary"><i class="fas fa-city" data-toggle="tooltip" data-placement="top" title="'.__('buttons.general.crud.edit').'"></i></a>';
+        return '<a href="'.route('admin.auth.country.admin.add', $this).'" class="btn btn-primary"><i class="fas fa-city" data-toggle="tooltip" data-placement="top" title="'.__('buttons.general.crud.admin').'"></i></a>';
     }
 
 

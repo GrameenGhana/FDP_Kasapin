@@ -10,6 +10,7 @@ namespace App\Models\Auth\Traits\Relationship;
 
 use App\Models\Auth\FormAssignation;
 use App\Models\Auth\HasAdminLevel;
+use App\Models\Auth\FormTranslation;
 
 trait CountryRelationship
 {
