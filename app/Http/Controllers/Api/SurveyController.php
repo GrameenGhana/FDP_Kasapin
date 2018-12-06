@@ -16,7 +16,7 @@ class SurveyController extends Controller
  public function  question(Request $request,Country $country)
  {
      $user = JWTAuth::authenticate($request->token);
-     
+
 
      $country =  Country::find($country->id);
 
@@ -34,8 +34,9 @@ class SurveyController extends Controller
           $responseBuilder = array(
               'id' => $translation->id,
               'name'=> $translation->display_name_c,
+              'form_id' => $translation->form_id,
               'form' => Form::find($translation->form_id),
-              'question' => array(Question::where('form_translation_id',$translation->id)->get())
+              'question' => Question::where('form_translation_id',$translation->id)->get()
 
           );
 
