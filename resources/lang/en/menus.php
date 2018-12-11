@@ -35,12 +35,41 @@ return [
                 'main'            => 'Users',
                 'view'            => 'View User',
             ],
+
+            'permissions'=> [
+                'all'        => 'All Permissions',
+                'create'     => 'Create Permission',
+                'edit'       => 'Edit Permission',
+                'management' => 'Permission Management',
+                'main'       => 'Permissions',
+            ],
+
+            'countries' => [
+                'all'       => 'All Countries',
+                'create'    => 'Create Country',
+                'edit'      => 'Edit Country',
+                'management'=> 'Country Management',
+                'main'      => 'Location',
+                'admin'     => 'Country Administration Management'
+            ]
         ],
 
         'log-viewer' => [
             'main'      => 'Log Viewer',
             'dashboard' => 'Dashboard',
             'logs'      => 'Logs',
+        ],
+
+        'survey' => [
+            'main'      => 'Survey',
+            'forms' => [
+                'all'       => 'All Forms',
+                'create'    => 'Create Form',
+                'edit'      => 'Edit Form',
+                'management'=> 'Form Management',
+                'main'      => 'Form',
+                'admin'     => 'Form Administration Management'
+            ]
         ],
 
         'sidebar' => [

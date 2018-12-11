@@ -57,6 +57,8 @@ class Handler extends ExceptionHandler
                 ->withFlashDanger(__('auth.general_error'));
         }
 
+        //throw $exception;
+
         return parent::render($request, $exception);
     }
 

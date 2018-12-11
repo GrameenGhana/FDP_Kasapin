@@ -14,6 +14,19 @@ return [
     */
 
     'backend' => [
+
+        //added
+        'permissions' => [
+            'created' => 'The permission was successfully created.',
+            'updated' => 'The permission was successfully updated.',
+            'deleted' => 'The permission was successfully deleted.',
+        ],
+        //added
+        'countries' => [
+            'created' => 'The country was successfully created.',
+            'updated' => 'The country was successfully updated.',
+            'deleted' => 'The country was successfully deleted.',
+        ],
         'roles' => [
             'created' => 'The role was successfully created.',
             'deleted' => 'The role was successfully deleted.',
@@ -33,6 +46,11 @@ return [
             'unconfirmed' => 'The user was successfully un-confirmed',
             'updated'             => 'The user was successfully updated.',
             'updated_password'    => "The user's password was successfully updated.",
+        ],
+        'forms' => [
+            'created' => 'The form was successfully created.',
+            'updated' => 'The form was successfully updated.',
+            'deleted' => 'The form was successfully deleted.',
         ],
     ],
 

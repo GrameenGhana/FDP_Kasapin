@@ -144,6 +144,17 @@ return [
     'attributes' => [
 
         'backend' => [
+            'survey' => [
+                'forms' => [
+
+                    'name'       => 'Name',
+                    'display_order' => 'Display Order',
+                    'type'  => 'Type',
+                    'display_type'     => 'Display Type',
+                    'custom'     => 'Custom',
+                    'country' => 'Country'
+                ],
+             ],
             'access' => [
                 'permissions' => [
                     'associated_roles' => 'Associated Roles',
@@ -182,6 +193,16 @@ return [
                     'send_confirmation_email' => 'Send Confirmation E-mail',
                     'timezone'                => 'Timezone',
                     'language'                => 'Language',
+                ],
+                //New
+                'countries' => [
+                    'name' => 'Country Name',
+                    'iso'  => 'ISO Code',
+                    'admin'=>  'Administration Levels',
+                    'average_gate' => 'Average Gate Price',
+                    'currency' => 'Currency',
+                    'parent' => 'Parent',
+                    'admin_name' => 'name'
                 ],
             ],
         ],

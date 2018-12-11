@@ -2,6 +2,8 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(\Spatie\Permission\Models\Permission::class, function (Faker $faker) {
-    return [];
+$factory->define(App\Models\Auth\Permission::class, function (Faker $faker) {
+    return [
+        'name'=> $faker->word,
+    ];
 });

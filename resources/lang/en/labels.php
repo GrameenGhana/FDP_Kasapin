@@ -37,6 +37,23 @@ return [
     ],
 
     'backend' => [
+        'survey' => [
+            'forms' => [
+                'create'     => 'Create Form',
+                'edit'       => 'Edit Form',
+                'management' => 'Form Management',
+
+                'table' => [
+                    'number_of_questions' => 'Number of Questions',
+                    'questions'     => 'Questions',
+                    'name'            => 'Name',
+                    'display_order'            => 'Display Order',
+                    'type'           => 'Type',
+                    'display_type'           => 'Display Type',
+                    'custom'           => 'Custom',
+                ],
+            ],
+        ],
         'access' => [
             'roles' => [
                 'create'     => 'Create Role',
@@ -50,6 +67,33 @@ return [
                     'sort'            => 'Sort',
                     'total'           => 'role total|roles total',
                 ],
+            ],
+            //Newly added
+            'permissions' => [
+                'create' => 'Create Permission',
+                'edit'   => 'Edit Permission',
+                'management' => 'Permission Management',
+
+                'table' => [
+                    'permissions'     => 'Permissions',
+                    'group'            => 'Group',
+                ],
+            ],
+            //Newly added
+            'countries' => [
+                'create' => 'Create Country',
+                'edit'   => 'Edit Country',
+                'management' => 'Country Management',
+                'admin' => 'Country Administration',
+
+                'table' => [
+                    'country'     => 'Country',
+                    'level'       => 'Admin Level',
+                    'iso'         => 'ISO Code',
+                    'currency'    => 'Currency',
+                    'gate_price'  =>  'Average Gate Price',
+                ],
+
             ],
 
             'users' => [

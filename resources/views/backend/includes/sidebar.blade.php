@@ -14,6 +14,29 @@
                 @lang('menus.backend.sidebar.system')
             </li>
 
+            @if($logged_in_user->isAdmin())
+                <li class="nav-item nav-dropdown {{ active_class(Active::checkUriPattern('admin/survey*'), 'open') }}">
+                    <a class="nav-link nav-dropdown-toggle {{ active_class(Active::checkUriPattern('admin/survey*')) }}" href="#">
+                        <i class="nav-icon icon-book-open"></i> @lang('menus.backend.survey.main')
+
+                        @if ($pending_approval > 0)
+                            <span class="badge badge-danger">{{ $pending_approval }}</span>
+                        @endif
+                    </a>
+
+                    <ul class="nav-dropdown-items">
+                        <li class="nav-item">
+                            <a class="nav-link {{ active_class(Active::checkUriPattern('admin/survey/forms*')) }}" href="{{ route('admin.survey.form.index') }}">
+                                @lang('labels.backend.survey.forms.management')
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
+
+
+            @endif
+
             @if ($logged_in_user->isAdmin())
                 <li class="nav-item nav-dropdown {{ active_class(Active::checkUriPattern('admin/auth*'), 'open') }}">
                     <a class="nav-link nav-dropdown-toggle {{ active_class(Active::checkUriPattern('admin/auth*')) }}" href="#">
@@ -39,9 +62,39 @@
                                 @lang('labels.backend.access.roles.management')
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ active_class(Active::checkUriPattern('admin/auth/permission*')) }}" href="{{ route('admin.auth.permission.index') }}">
+                                @lang('labels.backend.access.permissions.management')
+                            </a>
+                        </li>
                     </ul>
                 </li>
             @endif
+
+            @if($logged_in_user->isAdmin())
+                <li class="nav-item nav-dropdown {{ active_class(Active::checkUriPattern('admin/auth*'), 'open') }}">
+                    <a class="nav-link nav-dropdown-toggle {{ active_class(Active::checkUriPattern('admin/auth*')) }}" href="#">
+                        <i class="nav-icon icon-location-pin"></i> @lang('menus.backend.access.countries.main')
+
+                        @if ($pending_approval > 0)
+                            <span class="badge badge-danger">{{ $pending_approval }}</span>
+                        @endif
+                    </a>
+
+                    <ul class="nav-dropdown-items">
+                        <li class="nav-item">
+                            <a class="nav-link {{ active_class(Active::checkUriPattern('admin/auth/country*')) }}" href="{{ route('admin.auth.country.index') }}">
+                                @lang('labels.backend.access.countries.management')
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
+
+
+            @endif
+
+
 
             <li class="divider"></li>
 
@@ -68,6 +121,7 @@
                             @lang('menus.backend.log-viewer.logs')
                         </a>
                     </li>
+
                 </ul>
             </li>
         </ul>
