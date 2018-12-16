@@ -26,6 +26,7 @@
                                 <th>@lang('labels.backend.survey.forms.table.display_order')</th>
                                 <th>@lang('labels.backend.survey.forms.table.type')</th>
                                 <th>@lang('labels.backend.survey.forms.table.display_type')</th>
+                                <th>@lang('labels.backend.survey.forms.table.number_of_questions')</th>
                                 <th>@lang('labels.general.actions')</th>
                             </tr>
                             </thead>
@@ -36,6 +37,7 @@
                                     <td>{{ucwords($form->display_order_c)}}</td>
                                     <td>{{ucwords($form->type_c)}}</td>
                                     <td>{{ucwords($form->display_type_c)}}</td>
+                                    <td>{{ \App\Models\Survey\Question::where('form_translation_id',$form->form_transaltion()->id )->count()}}</td>
                                     <td>{!! $form->action_buttons !!}</td>
                                 </tr>
                             @endforeach

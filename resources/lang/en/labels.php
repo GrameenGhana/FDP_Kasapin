@@ -38,10 +38,11 @@ return [
 
     'backend' => [
         'survey' => [
-            'forms' => [
-                'create'     => 'Create Form',
-                'edit'       => 'Edit Form',
-                'management' => 'Form Management',
+            'skiplogics' => [
+                'create'     => 'Create Skip Logic',
+                'edit'       => 'Edit Skip Logic',
+                'management' => 'Skip Logic Management',
+
 
                 'table' => [
                     'number_of_questions' => 'Number of Questions',
@@ -51,6 +52,38 @@ return [
                     'type'           => 'Type',
                     'display_type'           => 'Display Type',
                     'custom'           => 'Custom',
+                ],
+             ],
+            'forms' => [
+                'create'     => 'Create Form',
+                'edit'       => 'Edit Form',
+                'management' => 'Form Management',
+                'question'   => 'Add Question',
+                'edit_question'   => 'Edit Question',
+
+
+                'table' => [
+                    'number_of_questions' => 'Number of Questions',
+                    'questions'     => 'Questions',
+                    'name'            => 'Name',
+                    'display_order'            => 'Display Order',
+                    'type'           => 'Type',
+                    'display_type'           => 'Display Type',
+                    'custom'           => 'Custom',
+                ],
+
+                'questions' => [
+                    'all'   => 'All Questions',
+                    'type'       => 'Type',
+                    'caption' => 'Caption',
+                    'required'  => 'Required',
+                    'formula'     => 'Formula',
+                    'label'     => 'Label',
+                    'default' => 'Default Value',
+                    'display_order' => 'Display Order',
+                    'help_text' => 'Help Text',
+                    'hide' => 'Hide',
+                    'options' => 'Options',
                 ],
             ],
         ],

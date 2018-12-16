@@ -152,7 +152,21 @@ return [
                     'type'  => 'Type',
                     'display_type'     => 'Display Type',
                     'custom'     => 'Custom',
-                    'country' => 'Country'
+                    'country' => 'Country',
+
+                    'questions' => [
+
+                        'type'       => 'Type',
+                        'caption' => 'Caption',
+                        'required'  => 'Required',
+                        'formula'     => 'Formula',
+                        'label'     => 'Label',
+                        'default' => 'Default Value',
+                        'display_order' => 'Display Order',
+                        'help_text' => 'Help Text',
+                        'hide' => 'Hide',
+                        'options' => 'Options',
+                    ],
                 ],
              ],
             'access' => [

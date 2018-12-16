@@ -19,6 +19,10 @@ return [
                 'create_error' => 'There was a problem creating this form. Please try again.',
                 'update_error'      => 'There was a problem updating this form. Please try again.',
             ],
+            'questions' => [
+                'create_error' => 'There was a problem creating this question. Please try again.',
+                'update_error'      => 'There was a problem updating this question. Please try again.',
+            ],
          ],
         'access' => [
             //added

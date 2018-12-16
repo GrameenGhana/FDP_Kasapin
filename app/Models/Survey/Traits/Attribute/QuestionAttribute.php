@@ -9,14 +9,14 @@
 namespace App\Models\Survey\Traits\Attribute;
 
 
-trait FormAttribute
+trait QuestionAttribute
 {
     /**
      * @return string
      */
     public function getEditButtonAttribute()
     {
-        return '<a href="'.route('admin.survey.form.edit', $this).'" class="btn btn-primary"><i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="'.__('buttons.general.crud.edit').'"></i></a>';
+        return '<a href="'.route('admin.survey.form.question.edit', $this).'" class="btn btn-primary"><i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="'.__('buttons.general.crud.edit').'"></i></a>';
     }
 
     /**
@@ -24,7 +24,7 @@ trait FormAttribute
      */
     public function getDeleteButtonAttribute()
     {
-        return '<a href="'.route('admin.survey.form.destroy', $this).'"
+        return '<a href="'.route('admin.survey.form.question.destroy', $this).'"
 			 data-method="delete"
 			 data-trans-button-cancel"'.__('buttons.general.cancel').'"
 			 data-trans-button-confirm="'.__('buttons.general.crud.delete').'"
@@ -32,13 +32,6 @@ trait FormAttribute
 			 class="btn btn-danger"><i class="fas fa-trash" data-toggle="tooltip" data-placement="top" title="'.__('buttons.general.crud.delete').'"></i></a> ';
     }
 
-    /**
-     * @return string
-     */
-    public function  getQuestionButtonAttribute()
-    {
-        return '<a href="'.route('admin.survey.form.question.all', $this).'" class="btn btn-primary"><i class="fas fa-question" data-toggle="tooltip" data-placement="top" title="'.__('buttons.general.crud.question').'"></i></a>';
-    }
 
 
     /**
@@ -50,7 +43,6 @@ trait FormAttribute
         return '<div class="btn-group btn-group-sm" role="group" aria-label="'.__('labels.backend.access.users.user_actions').'">
 			  '.$this->edit_button.'
 			  '.$this->delete_button.'
-			  '.$this->question_button.'
 			</div>';
     }
 

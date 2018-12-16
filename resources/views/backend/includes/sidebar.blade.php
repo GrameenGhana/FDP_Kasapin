@@ -30,6 +30,11 @@
                                 @lang('labels.backend.survey.forms.management')
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ active_class(Active::checkUriPattern('admin/survey/skiplogics*')) }}" href="{{ route('admin.survey.skiplogic.index') }}">
+                                @lang('labels.backend.survey.skiplogics.management')
+                            </a>
+                        </li>
                     </ul>
 
                 </li>

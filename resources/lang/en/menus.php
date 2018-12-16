@@ -68,7 +68,13 @@ return [
                 'edit'      => 'Edit Form',
                 'management'=> 'Form Management',
                 'main'      => 'Form',
-                'admin'     => 'Form Administration Management'
+                'admin'     => 'Form Administration Management',
+
+                'questions' => [
+                    'all'       => 'All Questions',
+                    'create'    => 'Add  Question',
+                    'edit'      => 'Edit Question',
+                ]
             ]
         ],
 

@@ -6,10 +6,15 @@ namespace App\Http\Controllers\Backend\Survey\Form;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Survey\Form\ManageFormRequest;
 use App\Http\Requests\Backend\Survey\Form\StoreFormRequest;
+use App\Http\Requests\Backend\Survey\Form\StoreQuestionRequest;
 use App\Http\Requests\Backend\Survey\Form\UpdateFormRequest;
+use App\Http\Requests\Backend\Survey\Form\UpdateQuestionRequest;
 use App\Models\Auth\Country;
 use App\Models\Survey\Form;
+use App\Models\Survey\FormTranslation;
+use App\Models\Survey\Question;
 use App\Repositories\Backend\Survey\FormRepository;
+use App\Repositories\Backend\Survey\QuestionRepository;
 
 class FormController extends Controller
 {
@@ -21,14 +26,22 @@ class FormController extends Controller
      */
     protected  $formRepository;
 
+    /**
+     * @var questionRepository
+     *
+     */
+    protected  $questionRepository;
+
 
     /**
      * @param FormRepository formRepository
+     * @param QuestionRepository questionRepository
      *
      */
-    public function __construct(FormRepository $formRepository)
+    public function __construct(FormRepository $formRepository,QuestionRepository $questionRepository)
     {
         $this->formRepository = $formRepository;
+        $this->questionRepository = $questionRepository;
     }
 
     /**
@@ -128,6 +141,86 @@ class FormController extends Controller
         return redirect()->route('admin.survey.form.index')->withFlashSuccess(__('alerts.backend.forms.deleted'));
     }
 
+    # retrieve questions page
+    public function allQuestions(Form $form)
+    {
 
+        $questions = FormTranslation::where('form_id',$form->id)->first()->question()->get();
+
+       // dd($questions);
+
+        return view('backend.survey.form.question.index', compact('questions','form'));
+    }
+
+
+    #  add questions
+    public function createQuestion(Form $form)
+    {
+
+        $types = ['Text'=>'Text','Single Select' => 'Single Select','Multi Select'=>'Multi Select','Number'=>'Number',
+            'Decimal'=>'Decimal','Logic Formula'=>'Logic Formula','Math Formula'=>'Math Formula','Geolocation'=>'Geolocation'];
+
+        return view('backend.survey.form.question.create', compact('form','types'));
+    }
+
+    /**
+     * Store the specified resource from storage.
+     *
+     * @param  StoreQuestionRequest $request
+     * @return mixed
+     */
+    public function storeQuestion(StoreQuestionRequest $request)
+    {
+
+        $questions = FormTranslation::where('form_id',$request->input('form_id'))->first()->question()->get();
+
+        $form = Form::find($request->input('form_id'));
+
+        $question = $this->questionRepository->create($request->only('caption_c','type_c','required_c','formula_c','label_c','default_value_c',
+            'display_order_c','help_text_c','hide_c','options_c','form_id'));
+
+
+        return redirect()->route('admin.survey.form.question.all',$form)->withFlashSuccess(__('alerts.backend.questions.created'))->withQuestions($questions)->withForm($form);
+    }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editQuestion(ManageFormRequest $request,Question $question)
+    {
+        $form = FormTranslation::find($question->form_translation_id)->form()->first();
+
+        $types = ['Text'=>'Text','Single Select' => 'Single Select','Multi Select'=>'Multi Select','Number'=>'Number',
+            'Decimal'=>'Decimal','Logic Formula'=>'Logic Formula','Math Formula'=>'Math Formula','Geolocation'=>'Geolocation'];
+
+
+        return view('backend.survey.form.question.edit',compact('types','form'))
+            ->withQuestion($question)->withForm($form);
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateQuestion(UpdateQuestionRequest $request, Question $question)
+    {
+
+        $questions = FormTranslation::where('form_id',$request->input('form_id'))->first()->question()->get();
+
+        $form = Form::find($request->input('form_id'));
+
+        $this->questionRepository->update($question, $request->only('caption_c','type_c','required_c','formula_c','label_c','default_value_c',
+            'display_order_c','help_text_c','hide_c','options_c'));
+
+        return redirect()->route('admin.survey.form.question.all',$form)->withFlashSuccess(__('alerts.backend.questions.updated'))->withQuestions($questions)->withForm($form);
+    }
 
 }

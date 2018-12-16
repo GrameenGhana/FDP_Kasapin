@@ -20,11 +20,11 @@ class CreateQuestionsTable extends Migration
             $table->string('caption_c');
             $table->string('type_c');
             $table->integer('required_c');
-            $table->string('formula_c');
+            $table->string('formula_c')->nullable();
             $table->string('label_c');
-            $table->string('default_value_c');
+            $table->string('default_value_c')->nullable();
             $table->integer('display_order_c');
-            $table->string('help_text_c');
+            $table->string('help_text_c')->nullable();
             $table->integer('hide_c');
             $table->text('options_c');
             $table->timestamps();
