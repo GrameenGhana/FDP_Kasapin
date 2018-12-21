@@ -14,13 +14,14 @@ class SurveyController extends Controller
     //
 
  public function  question(Request $request,Country $country)
+
  {
+    // dd($request->all());
      $user = JWTAuth::authenticate($request->token);
 
 
-     $country =  Country::find($country->id);
 
-    // dd($country);
+      $country =  Country::find($country->id);
       $translations = $country->formTranslation();
 
       $dataBuilder = array();

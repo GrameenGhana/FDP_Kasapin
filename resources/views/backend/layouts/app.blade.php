@@ -69,7 +69,7 @@
         $( "select#admin_level" )
             .change(function () {
                 var str = "";
-                     var level = 0;
+                var level = 0;
                $("div#add_level").empty();
                 $( "select option:selected" ).each(function() {
                     str += $( this ).text() + " ";
@@ -77,13 +77,11 @@
 
                     for(i=1;i<=level;i++)
                     {
-                        alert(""+i) ;
+
                         $("div#add_level").append('<label for='+'level'+i+' '+'class='+'col-md-2 form-control-label'+'>'+'level'+' '+i+'</label>')
                             .append('<input type="text" name=levels[] required/><br>'+'\n');
                     }
                 });
-                //$( "div" ).text( str );
-               // alert(str);
             })
             .change();
 
@@ -93,7 +91,6 @@
                     var str = $(this).val();
                     var country = $("#country_id").val();
 
-                   // alert(country);
                     $('#admin_select').empty();
 
                     if(str == '1'){
@@ -106,11 +103,9 @@
                     else{
 
                        $.get('http://127.0.0.1:8000/admin/cadmin/upper/'+str+'/'+country,function(data,status){
-                          // console.log(data);
                            var levels = data;
                            $('#parent_div').hide();
                            $('#level_div').show();
-
                            if(status == 'success')
                            {
                                var count;
@@ -118,12 +113,10 @@
                                {
 
                                    var level = levels[count];
-                                  // console.log(level.id);
                                   $('#admin_select').append($('<option>',{value:level.id,text:level.name}));
                                }
 
                                $("#parent").val($('#admin_select').val());
-                              // alert($('#admin_select').val());
                            }
                        });
                     }

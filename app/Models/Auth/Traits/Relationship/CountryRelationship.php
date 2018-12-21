@@ -11,6 +11,7 @@ namespace App\Models\Auth\Traits\Relationship;
 use App\Models\Auth\FormAssignation;
 use App\Models\Auth\HasAdminLevel;
 use App\Models\Auth\FormTranslation;
+use App\Models\Auth\Recommendation;
 
 trait CountryRelationship
 {
@@ -39,6 +40,15 @@ trait CountryRelationship
     {
         return $this->hasMany(FormTranslation::class,'country_id','id');
     }
+
+    /**
+     * @return mixed
+     */
+    public function Recommendation()
+    {
+        return $this->hasMany(Recommendation::class,'country_id','id');
+    }
+
 
 
 }
