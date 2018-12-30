@@ -120,6 +120,11 @@ class QuestionRepository extends BaseRepository
 
                 // event(new RoleUpdated($permission));
 
+                $question_map = QuestionMap::where('question_id',$question->id)->first();
+                $question_map->object_c =  $data['map_object'];
+                $question_map->field_c =  $data['map_field'];
+                $question_map->save();
+
                 return $question;
             }
 

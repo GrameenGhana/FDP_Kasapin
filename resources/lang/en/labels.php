@@ -81,6 +81,8 @@ return [
                     'help_text' => 'Help Text',
                     'hide' => 'Hide',
                     'options' => 'Options',
+                    'map_object' => 'Map Object',
+                    'map_field' => 'Map Field',
                 ],
             ],
         ],

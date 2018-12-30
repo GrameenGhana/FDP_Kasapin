@@ -148,6 +148,7 @@ class FormController extends Controller
 
         $questions = FormTranslation::where('form_id',$form->id)->first()->question()->get();
 
+        //dd(Question::find(2)->map());
 
         //dd($tables);
 
@@ -223,7 +224,7 @@ class FormController extends Controller
         $form = Form::find($request->input('form_id'));
 
         $this->questionRepository->update($question, $request->only('caption_c','type_c','required_c','formula_c','label_c','default_value_c',
-            'display_order_c','help_text_c','hide_c','options_c'));
+            'display_order_c','help_text_c','hide_c','options_c','map_object','map_field'));
 
         return redirect()->route('admin.survey.form.question.all',$form)->withFlashSuccess(__('alerts.backend.questions.updated'))->withQuestions($questions)->withForm($form);
     }

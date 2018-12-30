@@ -31,12 +31,12 @@ Breadcrumbs::for('admin.survey.form.question.all', function ($trail, $id) {
 });
 
 Breadcrumbs::for('admin.survey.form.question.edit', function ($trail, $id) {
-    $trail->parent('admin.survey.form.question.index');
+    $trail->parent('admin.survey.form.index');
     $trail->push(__('menus.backend.survey.forms.questions.edit'), route('admin.survey.form.question.edit', $id));
 });
 
 Breadcrumbs::for('admin.survey.form.question.update', function ($trail, $id) {
-    $trail->parent('admin.survey.form.question.index');
+    $trail->parent('admin.survey.form.index');
     $trail->push(__('menus.backend.survey.forms.questions.update'), route('admin.survey.form.question.update', $id));
 });
 
