@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 
-@section('title',app_name() . ' | ' . __('labels.backend.survey.forms.management'))
+@section('title',app_name() . ' | ' . __('labels.backend.survey.skiplogics.management'))
 
 @section('content')
     <div class="card">
@@ -8,12 +8,12 @@
             <div class="row">
                 <div class="col-sm-5">
                     <h4 class="class card-title mb-0">
-                        @lang('labels.backend.survey.forms.management')
+                        @lang('labels.backend.survey.skiplogics.management')
                     </h4>
                 </div>
 
                 <div class="col-sm-7 pull-right">
-                    @include('backend.survey.form.includes.header-buttons')
+                    @include('backend.survey.skiplogic.includes.header-buttons')
                 </div><!--col-->
             </div><!--row-->
             <div class="row mt-4">
@@ -22,21 +22,19 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>@lang('labels.backend.survey.forms.table.name')</th>
-                                <th>@lang('labels.backend.survey.forms.table.display_order')</th>
-                                <th>@lang('labels.backend.survey.forms.table.type')</th>
-                                <th>@lang('labels.backend.survey.forms.table.display_type')</th>
+                                <th>@lang('labels.backend.survey.skiplogics.table.question')</th>
+                                <th>@lang('labels.backend.survey.skiplogics.table.formula')</th>
+                                <th>@lang('labels.backend.survey.skiplogics.table.hide')</th>
                                 <th>@lang('labels.general.actions')</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($forms as $form)
+                            @foreach($skiplogics as $skiplogic)
                                 <tr>
-                                    <td>{{ucwords($form->form_name_c)}}</td>
-                                    <td>{{ucwords($form->display_order_c)}}</td>
-                                    <td>{{ucwords($form->type_c)}}</td>
-                                    <td>{{ucwords($form->display_type_c)}}</td>
-                                    <td>{!! $form->action_buttons !!}</td>
+                                    <td>{{ucwords($skiplogic->question->label_c)}}</td>
+                                    <td>{{ucwords($skiplogic->formula_c)}}</td>
+                                    <td>{{ucwords($skiplogic->hide_c)}}</td>
+                                    <td>{!! $skiplogic->action_buttons !!}</td>
                                 </tr>
                             @endforeach
 

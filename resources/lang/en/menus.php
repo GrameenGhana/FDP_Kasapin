@@ -75,6 +75,15 @@ return [
                     'create'    => 'Add  Question',
                     'edit'      => 'Edit Question',
                 ]
+            ],
+            'skiplogics' => [
+                'all'       => 'All Skip Logics',
+                'create'    => 'Create Skip Logic',
+                'edit'      => 'Edit Skip Logic',
+                'management'=> 'Skip Logic Management',
+                'main'      => 'Skip Logic',
+                'admin'     => 'Skip Logic Administration Management',
+
             ]
         ],
 

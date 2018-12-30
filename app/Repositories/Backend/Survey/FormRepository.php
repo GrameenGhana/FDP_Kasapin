@@ -58,7 +58,7 @@ class FormRepository extends BaseRepository
             if($form)
             {
 
-                //add form created event  here
+                //add form translation created event  here
 
                 FormTranslation::create([
                     'form_id' => $form->id,

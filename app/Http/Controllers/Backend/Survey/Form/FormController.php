@@ -15,6 +15,7 @@ use App\Models\Survey\FormTranslation;
 use App\Models\Survey\Question;
 use App\Repositories\Backend\Survey\FormRepository;
 use App\Repositories\Backend\Survey\QuestionRepository;
+use DB;
 
 class FormController extends Controller
 {
@@ -103,7 +104,7 @@ class FormController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ManageFormRequest $request,Form $form)
+    public function edit(ManageFormRequest $request, Form $form)
     {
         $countries = Country::all();
         return view('backend.survey.form.edit')
@@ -132,7 +133,7 @@ class FormController extends Controller
      * @param  Form $form
      * @return mixed
      */
-    public function destroy(ManageFormRequest $request,Form $form)
+    public function destroy(ManageFormRequest $request, Form $form)
     {
         $this->formRepository->deleteById($form->id);
 
@@ -147,7 +148,8 @@ class FormController extends Controller
 
         $questions = FormTranslation::where('form_id',$form->id)->first()->question()->get();
 
-       // dd($questions);
+
+        //dd($tables);
 
         return view('backend.survey.form.question.index', compact('questions','form'));
     }
@@ -156,6 +158,8 @@ class FormController extends Controller
     #  add questions
     public function createQuestion(Form $form)
     {
+
+       // $tables = $this->getTables();
 
         $types = ['Text'=>'Text','Single Select' => 'Single Select','Multi Select'=>'Multi Select','Number'=>'Number',
             'Decimal'=>'Decimal','Logic Formula'=>'Logic Formula','Math Formula'=>'Math Formula','Geolocation'=>'Geolocation'];
@@ -171,13 +175,14 @@ class FormController extends Controller
      */
     public function storeQuestion(StoreQuestionRequest $request)
     {
+        //dd($request);
 
         $questions = FormTranslation::where('form_id',$request->input('form_id'))->first()->question()->get();
 
         $form = Form::find($request->input('form_id'));
 
         $question = $this->questionRepository->create($request->only('caption_c','type_c','required_c','formula_c','label_c','default_value_c',
-            'display_order_c','help_text_c','hide_c','options_c','form_id'));
+            'display_order_c','help_text_c','hide_c','options_c','form_id','map_object','map_field'));
 
 
         return redirect()->route('admin.survey.form.question.all',$form)->withFlashSuccess(__('alerts.backend.questions.created'))->withQuestions($questions)->withForm($form);
@@ -190,7 +195,7 @@ class FormController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function editQuestion(ManageFormRequest $request,Question $question)
+    public function editQuestion(ManageFormRequest $request, Question $question)
     {
         $form = FormTranslation::find($question->form_translation_id)->form()->first();
 
@@ -221,6 +226,41 @@ class FormController extends Controller
             'display_order_c','help_text_c','hide_c','options_c'));
 
         return redirect()->route('admin.survey.form.question.all',$form)->withFlashSuccess(__('alerts.backend.questions.updated'))->withQuestions($questions)->withForm($form);
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getTables()
+    {
+        $tables_db = DB::select('SHOW TABLES');
+        $tables =[];
+        foreach($tables_db as $table)
+        {
+            array_push($tables,$table->Tables_in_fdp_db);
+        }
+
+
+        return $tables;
+    }
+
+    /**
+     * @param $tables
+     * @return array
+     */
+    public function getTableColumns($table)
+    {
+        $tablecolumns = \Schema::getColumnListing($table);
+
+        $columns =[];
+        foreach($tablecolumns as $column)
+        {
+            array_push($columns,$column);
+        }
+
+
+        return $columns;
     }
 
 }

@@ -46,12 +46,9 @@ return [
 
                 'table' => [
                     'number_of_questions' => 'Number of Questions',
-                    'questions'     => 'Questions',
-                    'name'            => 'Name',
-                    'display_order'            => 'Display Order',
-                    'type'           => 'Type',
-                    'display_type'           => 'Display Type',
-                    'custom'           => 'Custom',
+                    'question'     => 'Question',
+                    'formula'            => 'Formula',
+                    'hide'           => 'Hide',
                 ],
              ],
             'forms' => [

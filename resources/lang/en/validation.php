@@ -166,7 +166,19 @@ return [
                         'help_text' => 'Help Text',
                         'hide' => 'Hide',
                         'options' => 'Options',
+                        'map_object' => 'Object Map',
+                        'map_field' => 'Field Map',
+
                     ],
+                ],
+                'skiplogics' => [
+
+                    'question'       => 'Question',
+                    'question_hide'       => 'Question to show/hide',
+                    'logic_operator'  => 'Logic Operator',
+                    'formula'     => 'Formula',
+                    'question_value'     => 'Question Value',
+                    'hide' => 'Hide',
                 ],
              ],
             'access' => [

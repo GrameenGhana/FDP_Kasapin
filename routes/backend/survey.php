@@ -15,6 +15,8 @@ Route::group([
      */
     Route::group(['namespace' => 'Form'], function() {
         Route::resource('form', 'FormController');
+        Route::get('question/tables', 'FormController@getTables')->name('form.question.tables');
+        Route::get('question/columns/{table}', 'FormController@getTableColumns')->name('form.question.columns');
         Route::get('question/add/{form}', 'FormController@createQuestion')->name('form.question.add');
         Route::get('question/all/{form}', 'FormController@allQuestions')->name('form.question.all');
         Route::post('question/create', 'FormController@storeQuestion')->name('form.question.create');

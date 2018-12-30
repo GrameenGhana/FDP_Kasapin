@@ -10,6 +10,7 @@ namespace App\Repositories\Backend\Survey;
 
 use App\Models\Survey\FormTranslation;
 use App\Models\Survey\Question;
+use App\Models\Survey\QuestionMap;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 use App\Exceptions\GeneralException;
@@ -67,6 +68,11 @@ class QuestionRepository extends BaseRepository
 
             if($question)
             {
+                $question_map = new QuestionMap();
+                $question_map->question_id = $question->id;
+                $question_map->object_c =  $data['map_object'];
+                $question_map->field_c =  $data['map_field'];
+                $question_map->save();
 
                 return $question;
             }

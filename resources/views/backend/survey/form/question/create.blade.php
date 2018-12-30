@@ -168,6 +168,28 @@
                         </div><!--col-->
                     </div>
 
+                    <div class="form-group row">
+                        {{html()->label(__('validation.attributes.backend.survey.forms.questions.map_object'))
+                        ->class('col-md-2 form-control-label')
+                        ->for('map_object')}}
+
+                        <div class="col-md-10">
+                            {{ html()->select('map_object')->options([])
+                                ->class('form-control')}}
+                        </div><!--col-->
+                    </div>
+
+                    <div class="form-group row">
+                        {{html()->label(__('validation.attributes.backend.survey.forms.questions.map_field'))
+                        ->class('col-md-2 form-control-label')
+                        ->for('map_field')}}
+
+                        <div class="col-md-10">
+                            {{ html()->select('map_field')->options([])
+                                ->class('form-control')}}
+                        </div><!--col-->
+                    </div>
+
                 </div>
                 {{ html()->hidden('form_id')->value($form->id) }}
             </div>
@@ -195,3 +217,67 @@
 
 
 @endsection
+
+
+@push('after-scripts')
+    <script type="text/javascript">
+
+        function loadTables(){
+
+            var tables_url = '/admin/survey/question/tables';
+
+            $.ajax({
+                type: "GET",
+                url: tables_url,
+                success: function (data) {
+                    $("#map_object").empty();
+                    //$("#map_field").append("<option value=''> Select field</option>");
+                    $.each(data, function (i, item) {
+                        $("#map_object").append('<option value="' + data[i] + '">' + data[i] + '</option>');
+
+                    });
+
+                    loadColumns();
+                },
+                error: function(error){
+                },
+                complete: function () {
+                }
+            });
+        }
+
+        function loadColumns(){
+
+            var map_object = $("#map_object option:selected").text();
+            var columns_url = '/admin/survey/question/columns/'+map_object;
+
+            $.ajax({
+                type: "GET",
+                url: columns_url,
+                success: function (data) {
+                    $("#map_field").empty();
+                    //$("#map_field").append("<option value=''> Select field</option>");
+                    $.each(data, function (i, item) {
+                        $("#map_field").append('<option value="' + data[i] + '">' + data[i] + '</option>');
+
+                    });
+                },
+                error: function(error){
+                },
+                complete: function () {
+                }
+            });
+        }
+
+        loadTables();
+
+
+        $( "#map_object" ).change(function() {
+
+            loadColumns(map_object)
+
+        });
+
+
+    </script>
+@endpush

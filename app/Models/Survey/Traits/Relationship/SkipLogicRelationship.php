@@ -9,20 +9,22 @@
 namespace App\Models\Survey\Traits\Relationship;
 
 
-use App\Models\Survey\FormTranslation;
+use App\Models\Survey\Question;
+use App\Models\Survey\Form;
 
-trait FormRelationship
+trait SkipLogicRelationship
 {
-
 
     /**
      * @return
      *
      */
-    public function  form_translation()
+    public function  question()
     {
-               return $this->hasOne(FormTranslation::class,'form_id','id');
+               return $this->belongsTo(Question::class,'question_id');
     }
+
+
 
 
 }

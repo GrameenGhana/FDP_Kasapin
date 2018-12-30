@@ -37,6 +37,8 @@ class StoreQuestionRequest extends FormRequest
             'required_c' => 'required',
             'label_c' => 'required',
             'display_order_c' => 'required',
+            'map_object' => 'required',
+            'map_field' => 'required'
         ];
     }
 }

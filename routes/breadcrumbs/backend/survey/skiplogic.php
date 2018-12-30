@@ -11,12 +11,12 @@ Breadcrumbs::for('admin.survey.skiplogic.index', function($trail){
 });
 
 Breadcrumbs::for('admin.survey.skiplogic.create', function($trail){
-    $trail->parent('admin.survey.form.index');
+    $trail->parent('admin.survey.skiplogic.index');
     $trail->push(__('menus.backend.survey.skiplogics.create'), route('admin.survey.skiplogic.create'));
 });
 
 Breadcrumbs::for('admin.survey.skiplogic.edit', function ($trail, $id) {
-    $trail->parent('admin.survey.form.index');
+    $trail->parent('admin.survey.skiplogic.index');
     $trail->push(__('menus.backend.survey.skiplogics.edit'), route('admin.survey.skiplogic.edit', $id));
 });
 
