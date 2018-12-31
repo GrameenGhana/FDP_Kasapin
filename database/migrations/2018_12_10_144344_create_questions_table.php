@@ -17,7 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('form_translation_id');
-            $table->string('caption_c');
+            $table->string('caption_c')->nullable();
             $table->string('type_c');
             $table->integer('required_c');
             $table->string('formula_c')->nullable();
@@ -26,7 +26,7 @@ class CreateQuestionsTable extends Migration
             $table->integer('display_order_c');
             $table->string('help_text_c')->nullable();
             $table->integer('hide_c');
-            $table->text('options_c');
+            $table->text('options_c')->nullable();
             $table->timestamps();
         });
     }
