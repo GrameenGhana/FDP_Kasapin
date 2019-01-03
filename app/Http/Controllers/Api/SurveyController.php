@@ -21,7 +21,7 @@ class SurveyController extends Controller
 
 
 
-      $country =  Country::find($country->id);
+     // $country =  Country::find($country->id);
       $translations = $country->formTranslation();
 
       $dataBuilder = array();

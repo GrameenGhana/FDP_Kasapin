@@ -13,5 +13,5 @@ class Recommendation extends Model
      * @var string
      */
 
-    protected $table = 'country_admin_level_c';
+    protected $table = 'recommendation_c';
 }

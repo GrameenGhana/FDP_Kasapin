@@ -7,9 +7,21 @@
  */
 
 namespace App\Models\Auth\Traits\Relationship;
-
+use App\Models\Auth\SkipLogic;
 
 class QuestionRelationship
 {
+
+    /**
+     * @return mixed
+     */
+    public function SkipLogic()
+    {
+        return $this->hasMany(SkipLogic::class,'question_id','id');
+
+    }
+
+
+
 
 }

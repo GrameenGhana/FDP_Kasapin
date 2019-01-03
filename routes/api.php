@@ -31,7 +31,14 @@ Route::group(['prefix'=>'v1'],function(){
              return auth()->user();
          });
 
+         /*****
+          * Assumptions
+          * country should come from client
+          *
+          * crop id should come from client
+          */
          Route::get('survey/{country}','SurveyController@question');
+         Route::get('recommendation/{crop}','RecommendationController@recommendation');
 
      });
 
