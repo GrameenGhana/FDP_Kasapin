@@ -29,12 +29,13 @@
                                 <th>@lang('labels.backend.survey.forms.questions.display_order')</th>
                                 <th>@lang('labels.backend.survey.forms.questions.type')</th>
                                 <th>@lang('labels.backend.survey.forms.questions.options')</th>
-                                <th>@lang('labels.backend.survey.forms.questions.map_object')</th>
-                                <th>@lang('labels.backend.survey.forms.questions.map_field')</th>
+                              <!--  <th>@lang('labels.backend.survey.forms.questions.map_object')</th>
+                                <th>@lang('labels.backend.survey.forms.questions.map_field')</th>-->
                                 <th>@lang('labels.general.actions')</th>
                             </tr>
                             </thead>
                             <tbody>
+
                             @foreach($questions as $question)
 
                                 <tr>
@@ -43,9 +44,7 @@
                                     <td>{{ucwords($question->display_order_c)}}</td>
                                     <td>{{ucwords($question->type_c)}}</td>
                                     <td>{{ucwords($question->options_c)}}</td>
-                                    <td>{{$question->map->object_c }}</td>
-                                    <td>{{$question->map->field_c }}</td>
-                                    <td>{!! $question->action_buttons !!}</td>
+                                    <td>{!!$question->action_buttons !!}</td>
                                 </tr>
                             @endforeach
 

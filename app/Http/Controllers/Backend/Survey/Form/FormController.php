@@ -148,9 +148,10 @@ class FormController extends Controller
 
         $questions = FormTranslation::where('form_id',$form->id)->first()->question()->get();
 
-        //dd(Question::find(2)->map());
+       //dd(Question::find(2)->map);
+        //dd($questions->map);
 
-        //dd($tables);
+      //  dd($this->getTables());
 
         return view('backend.survey.form.question.index', compact('questions','form'));
     }
@@ -236,10 +237,14 @@ class FormController extends Controller
     public function getTables()
     {
         $tables_db = DB::select('SHOW TABLES');
+
+       // dd(env('DB_DATABASE'));
+      //  dd($tables_db);
+
         $tables =[];
         foreach($tables_db as $table)
         {
-            array_push($tables,$table->Tables_in_fdp_db);
+            array_push($tables,$table->Tables_in_fdp_kasapin);
         }
 
 

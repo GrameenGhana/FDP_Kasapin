@@ -61,8 +61,8 @@ class QuestionRepository extends BaseRepository
                 'default_value_c' => $data['default_value_c'],
                 'help_text_c' => $data['help_text_c'],
                 'hide_c' => $data['hide_c'],
-                'options_c' => $data['options_c'],
-                'user_id' => \auth()->user()->id
+                'options_c' => $data['options_c']
+               // 'user_id' => \auth()->user()->id
             ]);
 
 

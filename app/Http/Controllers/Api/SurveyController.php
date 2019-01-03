@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Auth\Country;
-use App\Models\Auth\Form;
-use App\Models\Auth\Question;
+use App\Models\Survey\Form;
+use App\Models\Survey\Question;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use JWTAuth;
