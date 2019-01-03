@@ -49,6 +49,7 @@ return [
             'update' => 'Update',
             'view'   => 'View',
             'admin'  => 'admin levels',
+            'question'  => 'Questions',
             'view_level' => 'view administration',
         ],
 

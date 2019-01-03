@@ -144,6 +144,43 @@ return [
     'attributes' => [
 
         'backend' => [
+            'survey' => [
+                'forms' => [
+
+                    'name'       => 'Name',
+                    'display_order' => 'Display Order',
+                    'type'  => 'Type',
+                    'display_type'     => 'Display Type',
+                    'custom'     => 'Custom',
+                    'country' => 'Country',
+
+                    'questions' => [
+
+                        'type'       => 'Type',
+                        'caption' => 'Caption',
+                        'required'  => 'Required',
+                        'formula'     => 'Formula',
+                        'label'     => 'Label',
+                        'default' => 'Default Value',
+                        'display_order' => 'Display Order',
+                        'help_text' => 'Help Text',
+                        'hide' => 'Hide',
+                        'options' => 'Options',
+                        'map_object' => 'Object Map',
+                        'map_field' => 'Field Map',
+
+                    ],
+                ],
+                'skiplogics' => [
+
+                    'question'       => 'Question',
+                    'question_hide'       => 'Question to show/hide',
+                    'logic_operator'  => 'Logic Operator',
+                    'formula'     => 'Formula',
+                    'question_value'     => 'Question Value',
+                    'hide' => 'Hide',
+                ],
+             ],
             'access' => [
                 'permissions' => [
                     'associated_roles' => 'Associated Roles',

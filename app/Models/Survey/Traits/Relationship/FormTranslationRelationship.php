@@ -6,11 +6,11 @@
  * Time: 1:21 PM
  */
 
-namespace App\Models\Auth\Traits\Relationship;
+namespace App\Models\Survey\Traits\Relationship;
 
 
-use App\Models\Auth\Question;
-use App\Models\Auth\Form;
+use App\Models\Survey\Question;
+use App\Models\Survey\Form;
 
 trait FormTranslationRelationship
 {

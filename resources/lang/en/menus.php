@@ -60,6 +60,33 @@ return [
             'logs'      => 'Logs',
         ],
 
+        'survey' => [
+            'main'      => 'Survey',
+            'forms' => [
+                'all'       => 'All Forms',
+                'create'    => 'Create Form',
+                'edit'      => 'Edit Form',
+                'management'=> 'Form Management',
+                'main'      => 'Form',
+                'admin'     => 'Form Administration Management',
+
+                'questions' => [
+                    'all'       => 'All Questions',
+                    'create'    => 'Add  Question',
+                    'edit'      => 'Edit Question',
+                ]
+            ],
+            'skiplogics' => [
+                'all'       => 'All Skip Logics',
+                'create'    => 'Create Skip Logic',
+                'edit'      => 'Edit Skip Logic',
+                'management'=> 'Skip Logic Management',
+                'main'      => 'Skip Logic',
+                'admin'     => 'Skip Logic Administration Management',
+
+            ]
+        ],
+
         'sidebar' => [
             'dashboard' => 'Dashboard',
             'general'   => 'General',

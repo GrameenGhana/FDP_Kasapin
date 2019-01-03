@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Auth;
+namespace App\Models\Survey;
 
 use Illuminate\Database\Eloquent\Model;
 

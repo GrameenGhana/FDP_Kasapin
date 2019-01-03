@@ -47,6 +47,21 @@ return [
             'updated'             => 'The user was successfully updated.',
             'updated_password'    => "The user's password was successfully updated.",
         ],
+        'forms' => [
+            'created' => 'The form was successfully created.',
+            'updated' => 'The form was successfully updated.',
+            'deleted' => 'The form was successfully deleted.',
+        ],
+        'skiplogics' => [
+            'created' => 'The skip logic was successfully created.',
+            'updated' => 'The skip logic was successfully updated.',
+            'deleted' => 'The skip logic was successfully deleted.',
+        ],
+        'questions' => [
+            'created' => 'The question was successfully created.',
+            'updated' => 'The question was successfully updated.',
+            'deleted' => 'The question was successfully deleted.',
+        ],
     ],
 
     'frontend' => [

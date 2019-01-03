@@ -156,7 +156,7 @@ class CountryController extends Controller
      * @param  Permission $permission
      * @return mixed
      */
-    public function destroy(UpdateCountryRequest $request,Country $country)
+    public function destroy(UpdateCountryRequest $request, Country $country)
     {
         $this->countryRepository->deleteById($country->id);
 

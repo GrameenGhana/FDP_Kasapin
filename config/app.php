@@ -175,6 +175,9 @@ return [
         App\Providers\ObserverServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+	//Audit Logging
+	OwenIt\Auditing\AuditingServiceProvider::class,
+
     ],
 
     /*
