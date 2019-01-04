@@ -102,7 +102,7 @@
                     }
                     else{
 
-                       $.get('http://127.0.0.1:8000/admin/cadmin/upper/'+str+'/'+country,function(data,status){
+                       $.get('/admin/cadmin/upper/'+str+'/'+country,function(data,status){
                            var levels = data;
                            $('#parent_div').hide();
                            $('#level_div').show();
