@@ -100,6 +100,7 @@
 
     <!--<script src="https://code.jquery.com/jquery-1.10.2.js"></script>-->
     <script>
+        var BASEURL = "{!! url('/') !!}";
         $(document).ready(function () {
 
             $('#parent_div').show();
@@ -142,7 +143,7 @@
                     }
                     else{
 
-                        $.get('/admin/cadmin/upper/'+str+'/'+country,function(data,status){
+                        $.get(BASEURL+'/admin/cadmin/upper/'+str+'/'+country,function(data,status){
                             var levels = data;
                             $('#parent_div').hide();
                             $('#level_div').show();
