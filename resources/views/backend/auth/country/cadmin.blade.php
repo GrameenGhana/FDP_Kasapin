@@ -94,3 +94,96 @@
 
 
 @endsection
+
+
+@push('after-scripts')
+
+    <!--<script src="https://code.jquery.com/jquery-1.10.2.js"></script>-->
+    <script>
+        $(document).ready(function () {
+
+            $('#parent_div').show();
+            $('#level_div').hide();
+
+        });
+        $( "select#admin_level" )
+            .change(function () {
+                var str = "";
+                var level = 0;
+                $("div#add_level").empty();
+                $( "select option:selected" ).each(function() {
+                    str += $( this ).text() + " ";
+                    level = parseInt(str);
+
+                    for(i=1;i<=level;i++)
+                    {
+
+                        $("div#add_level").append('<label for='+'level'+i+' '+'class='+'col-md-2 form-control-label'+'>'+'level'+' '+i+'</label>')
+                            .append('<input type="text" name=levels[] required/><br>'+'\n');
+                    }
+                });
+            })
+            .change();
+
+        $( "select#admin_level_1" )
+            .change(function () {
+                $( "select#admin_level_1  option:selected" ).each(function() {
+                    var str = $(this).val();
+                    var country = $("#country_id").val();
+
+                    $('#admin_select').empty();
+
+                    if(str == '1'){
+
+                        $("#parent").val('none');
+                        $('#parent_div').show();
+                        $('#level_div').hide();
+
+                    }
+                    else{
+
+                        $.get('/admin/cadmin/upper/'+str+'/'+country,function(data,status){
+                            var levels = data;
+                            $('#parent_div').hide();
+                            $('#level_div').show();
+                            if(status == 'success')
+                            {
+                                var count;
+                                for( count=0;count<levels.length;count++)
+                                {
+
+                                    var level = levels[count];
+                                    $('#admin_select').append($('<option>',{value:level.id,text:level.name}));
+                                }
+
+                                $("#parent").val($('#admin_select').val());
+                            }
+                        });
+                    }
+
+
+                });
+            }).change();
+
+
+        $( "select#admin_select" )
+            .change(function () {
+                var  value = $(this).val();
+                if(value== null)
+                {
+                    $('#parent').val('none');
+                }
+                else {
+                    $('#parent').val($(this).val());
+                }
+
+            }).change();
+
+    </script>
+
+
+@endpush
+
+
+
+
