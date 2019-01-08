@@ -116,3 +116,34 @@
 
 @endsection
 
+
+@push('after-scripts')
+    <script>
+        $(document).ready(function () {
+
+            $('#parent_div').show();
+            $('#level_div').hide();
+
+        });
+        $( "select#admin_level" )
+            .change(function () {
+                var str = "";
+                var level = 0;
+                $("div#add_level").empty();
+                $( "select option:selected" ).each(function() {
+                    str += $( this ).text() + " ";
+                    level = parseInt(str);
+
+                    for(i=1;i<=level;i++)
+                    {
+
+                        $("div#add_level").append('<label for='+'level'+i+' '+'class='+'col-md-2 form-control-label'+'>'+'level'+' '+i+'</label>')
+                            .append('<input type="text" name=levels[] required/><br>'+'\n');
+                    }
+                });
+            })
+            .change();
+    </script>
+
+
+@endpush
