@@ -217,10 +217,10 @@
 
 @push('after-scripts')
     <script type="text/javascript">
-
+        var BASEURL = "{!! url('/') !!}";
         function loadTables(){
 
-            var tables_url = '/admin/survey/question/tables';
+            var tables_url = BASEURL+'/admin/survey/question/tables';
 
             $.ajax({
                 type: "GET",
@@ -245,7 +245,7 @@
         function loadColumns(){
 
             var map_object = $("#map_object option:selected").text();
-            var columns_url = '/admin/survey/question/columns/'+map_object;
+            var columns_url = BASEURL+'/admin/survey/question/columns/'+map_object;
 
             $.ajax({
                 type: "GET",
