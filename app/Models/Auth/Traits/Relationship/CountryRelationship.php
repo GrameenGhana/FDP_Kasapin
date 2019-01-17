@@ -8,9 +8,9 @@
 
 namespace App\Models\Auth\Traits\Relationship;
 
-use App\Models\Auth\FormAssignation;
+use App\Models\Survey\FormAssignation;
 use App\Models\Auth\HasAdminLevel;
-use App\Models\Auth\FormTranslation;
+use App\Models\Survey\FormTranslation;
 use App\Models\Auth\Recommendation;
 
 trait CountryRelationship

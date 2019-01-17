@@ -244,7 +244,7 @@ class FormController extends Controller
         $tables =[];
         foreach($tables_db as $table)
         {
-            array_push($tables,$table->Tables_in_fdp);
+            array_push($tables,$table->Tables_in_fdp_kasapin);
         }
 
 

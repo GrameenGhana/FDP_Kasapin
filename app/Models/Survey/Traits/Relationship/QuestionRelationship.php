@@ -9,6 +9,7 @@
 namespace App\Models\Survey\Traits\Relationship;
 
 use App\Models\Survey\QuestionMap;
+use App\Models\Survey\SkipLogic;
 
 trait QuestionRelationship
 {
@@ -21,6 +22,15 @@ trait QuestionRelationship
     public function  map()
     {
                return $this->hasOne(QuestionMap::class,'question_id','id');
+    }
+
+    /**
+     * @return
+     *
+     */
+    public function  skipLogic()
+    {
+        return $this->hasMany(SkipLogic::class,'question_id','id');
     }
 
 
