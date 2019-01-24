@@ -6,14 +6,51 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use JWTFactory;
 use JWTAuth;
-use App\Http\Controllers\Controller;
 
-class LoginController extends Controller
+
+class LoginController extends APIcontroller
 {
     /**
-     * Agent Login
+     * Login for a mobile user's account.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
+     *
+     *
+     * @SWG\Post(
+     *     path="/auth/user/login",
+     *     tags={"user"},
+     *     operationId="api.auth.user.login",
+     *     summary="Login as field Coordinator",
+     *     produces={ "application/json"},
+     *     @SWG\Parameter(
+     *     name="email",
+     *     in="query",
+     *     type="string",
+     *     description="login email",
+     *     required=true,
+     *      ),
+     *     @SWG\Parameter(
+     *         name="password",
+     *         in="query",
+     *         type="string",
+     *         description="login password",
+     *         required=true,
+     *     ),
+     *
+     *      @SWG\Response(
+     *         response=200,
+     *         description="Successful Operation."
+     *
+     *     ),
+     *     @SWG\Response(
+     *         response=401,
+     *         description="Invalid Credentials."
+     *     ),
+     *    @SWG\Response(
+     *         response=500,
+     *         description="Could not create token"
+     *     )
+     * )
      */
     public function login(Request $request)
     {

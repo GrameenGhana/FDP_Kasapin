@@ -7,12 +7,46 @@ use App\Models\Survey\Form;
 use App\Models\Survey\Question;
 use App\Models\Survey\SkipLogic;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use JWTAuth;
 
-class SurveyController extends Controller
+class SurveyController extends APIcontroller
 {
-    //
+
+
+    /**
+     *
+     *
+     * @SWG\Get(
+     *      path="/auth/user/survey/{country_id}",
+     *      operationId="api.auth.user.survey",
+     *      tags={"survey"},
+     *      summary="Get survey questions and skip logic",
+     *      description="Returns questions and skip logic",
+     *
+
+     *      @SWG\Parameter(
+     *          name="country_id",
+     *          description="country id",
+     *          required=true,
+     *          type="integer",
+     *          in="path"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="token",
+     *          description="authentication token",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation"
+     *       ),
+     *      @SWG\Response(response=401, description="Invalid Credentials")
+     *
+     * )
+     *
+     */
 
  public function  question(Request $request,Country $country)
 

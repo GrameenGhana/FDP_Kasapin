@@ -9,6 +9,41 @@ use App\Models\Auth\RecommendationActivity;
 use App\Http\Controllers\Controller;
 use JWTAuth;
 
+/**
+ *
+ *
+ * @SWG\Get(
+ *      path="/auth/user/recommendation/{crop_id}",
+ *      operationId="api.auth.user.recommendation",
+ *      tags={"recommendation"},
+ *      summary="Get recommendations and calculations",
+ *      description="Returns recommendations and calculations",
+ *
+ *      @SWG\Parameter(
+ *          name="crop_id",
+ *          description="crop id",
+ *          required=true,
+ *          type="integer",
+ *          in="path"
+ *      ),
+ *      @SWG\Parameter(
+ *          name="token",
+ *          description="authentication token",
+ *          required=true,
+ *          type="string",
+ *          in="query"
+ *      ),
+ *      @SWG\Response(
+ *          response=200,
+ *          description="successful operation"
+ *       ),
+ *      @SWG\Response(response=401, description="Invalid Credentials")
+ *
+ * )
+ *
+ */
+
+
 class RecommendationController extends Controller
 {
    public function recommendation(Request $request,Crop $crop)
