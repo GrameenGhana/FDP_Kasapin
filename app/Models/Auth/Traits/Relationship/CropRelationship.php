@@ -32,4 +32,14 @@ trait CropRelationship
     }
 
 
+
+    /**
+     * @return mixed
+     */
+    public function Activity()
+    {
+        return $this->hasMany(Activity::class,'activity_id','id');
+    }
+
+
 }

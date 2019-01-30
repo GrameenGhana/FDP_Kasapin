@@ -8,6 +8,7 @@
 
 namespace App\Models\Auth\Traits\Relationship;
 
+use App\Models\Auth\ActivityTranslation;
 use App\Models\Survey\FormAssignation;
 use App\Models\Auth\HasAdminLevel;
 use App\Models\Survey\FormTranslation;
@@ -49,6 +50,13 @@ trait CountryRelationship
         return $this->hasMany(Recommendation::class,'country_id','id');
     }
 
+    /**
+     * @return mixed
+     */
+    public function Country()
+    {
+        return $this->hasMany(ActivityTranslation::class,'country_id','id');
+    }
 
 
 }
