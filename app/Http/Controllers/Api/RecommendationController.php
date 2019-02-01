@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\Auth\Crop;
+use App\Models\Auth\Country;
 use App\Models\Auth\RecommendationCalculation;
 use App\Models\Auth\RecommendationActivity;
+use App\Models\Auth\Activity;
 use App\Models\Auth\InputPrice;
 use App\Http\Controllers\Controller;
 use JWTAuth;
@@ -66,7 +68,7 @@ class RecommendationController extends Controller
                'change_option' => $recommendation->change_option_c,
                'country'     => $recommendation->country_id,
                'calculations' => RecommendationCalculation::where('recommendation_id',$recommendation->id)->get(),
-               'activity' => RecommendationActivity::where('recommendation_id',$recommendation->id)->get()
+               'recommendation_activity' => RecommendationActivity::where('recommendation_id',$recommendation->id)->get()
            );
 
 
@@ -154,6 +156,85 @@ class RecommendationController extends Controller
           return response()->json(['error' => 'invalid_token'], 401);
       }
 
+
+  }
+
+
+    /**
+     *
+     *
+     * @SWG\Get(
+     *      path="/auth/user/activity/{country_id}",
+     *      operationId="api.auth.user.activity",
+     *      tags={"activity"},
+     *      summary="Get activity translation and activities",
+     *      description="Returns activity translation and activities",
+     *
+     *      @SWG\Parameter(
+     *          name="country_id",
+     *          description="country id",
+     *          required=true,
+     *          type="integer",
+     *          in="path"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="token",
+     *          description="authentication token",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation"
+     *       ),
+     *      @SWG\Response(response=401, description="Invalid Credentials")
+     *
+     * )
+     *
+     */
+
+
+  public function activityInfo(Request $request,Country $country)
+  {
+      $user = JWTAuth::authenticate($request->token);
+
+
+      $translations = $country->ActivityTranslation()->get();
+
+      $dataBuilder = array();
+      $recommendation_activityBuilder = array();
+
+
+      foreach ($translations as $activityTranslation)
+      {
+          $activity = Activity::where('id',$activityTranslation->activity_id)->first();
+          $recommendation_activities = RecommendationActivity::where('activity_id',$activity->id)->get();
+
+           $activityBuilder = array(
+               'id' => $activity->id,
+               'crop_id' => $activity->crop_id,
+               'name' => $activity->name_c,
+               'recommendation_activity'=> $recommendation_activities);
+
+          $responseBuilder = array(
+                   'id' => $activityTranslation->id,
+                   'country' => $activityTranslation->country_id,
+                   'display_name' => $activityTranslation->display_name_c,
+                   'activity' => $activityBuilder
+               );
+
+                array_push($dataBuilder,$responseBuilder);
+      }
+
+
+      if($user)
+      {
+          return response()->json(['data' => $dataBuilder],200);
+
+      }else{
+          return response()->json(['error' => 'invalid_token'], 401);
+      }
 
   }
 

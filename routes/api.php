@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix'=>'v1'],function(){
 
 
+
     Route::group(['namespace'=>'Api','prefix'=>'auth/user'],function(){
 
      Route::post('login','LoginController@login');
@@ -40,8 +41,10 @@ Route::group(['prefix'=>'v1'],function(){
          Route::get('survey/{country}','SurveyController@question');
          Route::get('recommendation/{crop}','RecommendationController@recommendation');
          Route::get('input/{crop}','RecommendationController@input');
+         Route::get('activity/{country}','RecommendationController@activityInfo');
 
      });
+
 
     });
 

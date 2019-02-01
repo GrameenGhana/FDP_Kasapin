@@ -53,7 +53,7 @@ trait CountryRelationship
     /**
      * @return mixed
      */
-    public function Country()
+    public function ActivityTranslation()
     {
         return $this->hasMany(ActivityTranslation::class,'country_id','id');
     }

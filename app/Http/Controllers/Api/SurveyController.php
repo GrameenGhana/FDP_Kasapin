@@ -54,8 +54,6 @@ class SurveyController extends APIcontroller
     // dd($request->all());
      $user = JWTAuth::authenticate($request->token);
 
-
-
       $country =  Country::find($country->id);
 
       $translations = $country->formTranslation();
