@@ -48,7 +48,7 @@ class Kernel extends HttpKernel
 
         'admin' => [
             'auth',
-            'password_expires',
+          //  'password_expires',
             'permission:view backend',
         ],
     ];
@@ -71,5 +71,7 @@ class Kernel extends HttpKernel
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'jwt.auth' => 'Tymon\JWTAuth\Middleware\GetUserFromToken',
+        'jwt.refresh' => 'Tymon\JWTAuth\Middleware\RefreshToken'
     ];
 }

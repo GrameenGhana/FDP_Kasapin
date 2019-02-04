@@ -48,6 +48,9 @@ return [
             'edit'   => 'Edit',
             'update' => 'Update',
             'view'   => 'View',
+            'admin'  => 'admin levels',
+            'question'  => 'Questions',
+            'view_level' => 'view administration',
         ],
 
         'save' => 'Save',

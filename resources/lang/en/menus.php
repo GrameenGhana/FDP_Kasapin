@@ -35,12 +35,56 @@ return [
                 'main'            => 'Users',
                 'view'            => 'View User',
             ],
+
+            'permissions'=> [
+                'all'        => 'All Permissions',
+                'create'     => 'Create Permission',
+                'edit'       => 'Edit Permission',
+                'management' => 'Permission Management',
+                'main'       => 'Permissions',
+            ],
+
+            'countries' => [
+                'all'       => 'All Countries',
+                'create'    => 'Create Country',
+                'edit'      => 'Edit Country',
+                'management'=> 'Country Management',
+                'main'      => 'Location',
+                'admin'     => 'Country Administration Management'
+            ]
         ],
 
         'log-viewer' => [
             'main'      => 'Log Viewer',
             'dashboard' => 'Dashboard',
             'logs'      => 'Logs',
+        ],
+
+        'survey' => [
+            'main'      => 'Survey',
+            'forms' => [
+                'all'       => 'All Forms',
+                'create'    => 'Create Form',
+                'edit'      => 'Edit Form',
+                'management'=> 'Form Management',
+                'main'      => 'Form',
+                'admin'     => 'Form Administration Management',
+
+                'questions' => [
+                    'all'       => 'All Questions',
+                    'create'    => 'Add  Question',
+                    'edit'      => 'Edit Question',
+                ]
+            ],
+            'skiplogics' => [
+                'all'       => 'All Skip Logics',
+                'create'    => 'Create Skip Logic',
+                'edit'      => 'Edit Skip Logic',
+                'management'=> 'Skip Logic Management',
+                'main'      => 'Skip Logic',
+                'admin'     => 'Skip Logic Administration Management',
+
+            ]
         ],
 
         'sidebar' => [
