@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Auth\Input;
+use App\Models\Auth\InputActivity;
 use Illuminate\Http\Request;
 use App\Models\Auth\Crop;
 use App\Models\Auth\Country;
@@ -203,7 +205,6 @@ class RecommendationController extends Controller
       $translations = $country->ActivityTranslation()->get();
 
       $dataBuilder = array();
-      $recommendation_activityBuilder = array();
 
 
       foreach ($translations as $activityTranslation)
@@ -237,5 +238,35 @@ class RecommendationController extends Controller
       }
 
   }
+
+
+  public function activityInputByInput(Request $request,Input $input)
+  {
+      $user = JWTAuth::authenticate($request->token);
+      if($user){
+          return  response()->json(['data' => $input->InputActivity()->get()],200);
+      }
+      else {
+          return response()->json(['error' => 'invalid_token'], 401);
+      }
+
+  }
+
+    public function activityInputByRecommendationActivity(Request $request,Input $input)
+    {
+       $user = JWTAuth::authenticate($request->token);
+
+        $input_activity = $input::where();
+
+        dd($input_activity);
+
+        if(true){
+            return  response()->json(['data' => $input_activity],200);
+        }
+        else {
+            return response()->json(['error' => 'invalid_token'], 401);
+        }
+
+    }
 
 }

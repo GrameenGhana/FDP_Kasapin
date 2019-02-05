@@ -3,6 +3,7 @@
 /public/storage
 public/images
 /storage/*.key
+/storage/api-docs/api-docs.json
 /vendor
 /.idea
 /.vagrant

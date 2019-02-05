@@ -42,6 +42,8 @@ Route::group(['prefix'=>'v1'],function(){
          Route::get('recommendation/{crop}','RecommendationController@recommendation');
          Route::get('input/{crop}','RecommendationController@input');
          Route::get('activity/{country}','RecommendationController@activityInfo');
+         Route::get('inputactivity/{input}','RecommendationController@activityInputByInput');
+         Route::get('recommendationactivity/{input}','RecommendationController@activityInputByRecommendationActivity');
 
      });
 
