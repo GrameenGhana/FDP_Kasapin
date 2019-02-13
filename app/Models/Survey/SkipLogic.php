@@ -19,7 +19,7 @@ class SkipLogic extends Model
 
     protected $table = 'skip_logic_c';
 
-    protected  $fillable = ['question_id','hide_c','formula_c','user_id'];
+    protected  $fillable = ['question_id','hide_c','formula_c'];
 
     use SkipLogicAttribute;
     use SkipLogicRelationship;
