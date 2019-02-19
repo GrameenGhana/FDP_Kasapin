@@ -244,7 +244,7 @@ class RecommendationController extends Controller
      *
      *
      * @SWG\Get(
-     *      path="/auth/user/inputactivity/{input}",
+     *      path="/auth/user/inputactivity/{input_id}",
      *      operationId="api.auth.user.inputactivity",
      *      tags={"activity"},
      *      summary="Get input activity from inputs",
@@ -290,7 +290,7 @@ class RecommendationController extends Controller
      *
      *
      * @SWG\Get(
-     *      path="/auth/user/inputactivityre/{recommendationactivity}",
+     *      path="/auth/user/inputactivityre/{recommendation_activity_id}",
      *      operationId="api.auth.user.inputactivitybyrecommendationactivity",
      *      tags={"activity"},
      *      summary="Get input activity from recommendationactivity ",

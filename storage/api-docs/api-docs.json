@@ -159,7 +159,7 @@
                 }
             }
         },
-        "/auth/user/inputactivity/{input}": {
+        "/auth/user/inputactivity/{input_id}": {
             "get": {
                 "tags": [
                     "activity"
@@ -193,7 +193,7 @@
                 }
             }
         },
-        "/auth/user/inputactivityre/{recommendationactivity}": {
+        "/auth/user/inputactivityre/{recommendation_activity_id}": {
             "get": {
                 "tags": [
                     "activity"
