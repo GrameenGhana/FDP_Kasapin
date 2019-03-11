@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Auth\Input;
 use App\Models\Auth\InputActivity;
+use App\Models\Auth\Recommendation;
 use Illuminate\Http\Request;
 use App\Models\Auth\Crop;
 use App\Models\Auth\Country;
@@ -18,7 +19,7 @@ use JWTAuth;
  *
  *
  * @SWG\Get(
- *      path="/auth/user/recommendation/{crop_id}",
+ *      path="/auth/user/recommendation/{crop_id}/{country_id}",
  *      operationId="api.auth.user.recommendation",
  *      tags={"recommendation"},
  *      summary="Get recommendations and calculations",
@@ -27,6 +28,13 @@ use JWTAuth;
  *      @SWG\Parameter(
  *          name="crop_id",
  *          description="crop id",
+ *          required=true,
+ *          type="integer",
+ *          in="path"
+ *      ),
+ *     @SWG\Parameter(
+ *          name="country_id",
+ *          description="country",
  *          required=true,
  *          type="integer",
  *          in="path"
@@ -51,12 +59,13 @@ use JWTAuth;
 
 class RecommendationController extends Controller
 {
-   public function recommendation(Request $request,Crop $crop)
+   public function recommendation(Request $request,Crop $crop,Country $country)
    {
        $user = JWTAuth::authenticate($request->token);
 
        $dataBuilder = array();
-       $recommendations = $crop->Recommendation()->get();
+     //$recommendations = $crop->Recommendation()->get();
+       $recommendations = Recommendation::where([["crop_id","=",$crop->id],["country_id","=",$country->id]])->get();
 
        foreach($recommendations as $recommendation)
        {
