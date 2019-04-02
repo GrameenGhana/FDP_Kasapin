@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::post('SynchUpData','Api\SynchUPController@received_data');
+Route::post('synchupdata','Api\SynchUPController@received_data');
 
 Route::group(['prefix'=>'v1'],function(){
 
