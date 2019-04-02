@@ -37,22 +37,35 @@ class SynchUp implements ShouldQueue
     {
            $combine = array();
            $dat = $this->formdata;
+
        //foreach($dat['data']['farmer_c'] as $value){
         foreach($dat['data'] as $val) {
             foreach ($val['farmer_c'] as $value) {
                 $combine[$value['field_name']] = $value['answer'];
             }
+
+            foreach ($val['farm_c'] as $value) {
+                $combine[$value['field_name']] = $value['answer'];
+            }
+            foreach ($val['farmer_baseline_c'] as $value) {
+                $farmer_baseline_data[$value['field_name']] = $value['answer'];
+            }
+            $plot_data = $val['plot_c'];
+            $diagnostic_data = $val['diagnostic_monitoring_c'];
+            $observation_data = $val['observation_c'];
         }
+
        $combine['start_date_c']=$dat['submission']['Start__c'];
         $combine['surveyor_id']=$dat['submission']['Surveyor__c'];
        $combine['respondent_id']=$dat['data'][0]['external_id'];
        $combine['country_admin_level_id'] = 1;
+       $data = [$combine,$plot_data,$diagnostic_data,$observation_data,$farmer_baseline_data];
       if($survey->surveyExist($dat['data'][0]['external_id']) > 0){
          $res = $survey->updateById($dat['data'][0]['external_id'],$combine);
           $action = 'data update received on modifications: ';
       }
       else {
-          $res = $survey->create($combine);
+          $res = $survey->create($data);
           $action = 'data created received on insertion: ';
       }
         Log::info($action.json_encode($res));
