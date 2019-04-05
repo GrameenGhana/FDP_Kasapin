@@ -13,5 +13,6 @@ class InputActivity extends Model
      * @var string
      */
 
-    protected $table = 'input_activity_c';
+    protected $table = 'activity_input_c';
+
 }

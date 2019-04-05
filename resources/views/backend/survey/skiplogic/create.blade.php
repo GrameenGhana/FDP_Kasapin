@@ -30,7 +30,7 @@
                         <div class="col-md-10">
                             <select class="form-control" name="question" id="question" required>
                                 @foreach($questions as $question)
-                                    <option value="{{ $question->id }}">{{ $question->label_c }}</option>
+                                    <option value="{{ $question->label_c }}">{{ $question->label_c }}</option>
                                 @endforeach
                             </select>
 

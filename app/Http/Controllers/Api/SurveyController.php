@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Auth\Country;
 use App\Models\Survey\Form;
 use App\Models\Survey\Question;
+use App\Models\Survey\QuestionMap;
 use App\Models\Survey\SkipLogic;
 use Illuminate\Http\Request;
 use JWTAuth;
@@ -72,6 +73,7 @@ class SurveyController extends APIcontroller
               $questionData = array(
                   'question' => $question,
                   'skiplogic' => SkipLogic::where('question_id',$question->id)->get(),
+                  'map' => QuestionMap::where('question_id',$question->id)->get()
               );
 
               array_push($questionbuilder,$questionData);

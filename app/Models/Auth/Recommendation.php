@@ -2,6 +2,7 @@
 
 namespace App\Models\Auth;
 
+use App\Models\Auth\Traits\Relationship\RecommendationRelationship;
 use Illuminate\Database\Eloquent\Model;
 
 class Recommendation extends Model
@@ -14,4 +15,6 @@ class Recommendation extends Model
      */
 
     protected $table = 'recommendation_c';
+
+    use RecommendationRelationship;
 }

@@ -2,8 +2,11 @@
 /public/hot
 /public/storage
 public/images
+/public/.htaccess
 /storage/*.key
+/storage/api-docs/api-docs.json
 /vendor
+.DS_Store
 /.idea
 /.vagrant
 /nbproject
@@ -13,7 +16,6 @@ npm-debug.log
 yarn-error.log
 .env
 .env.dusk.*
-.DS_Store
 Thumbs.db
 *.sublime-project
 *.sublime-workspace
