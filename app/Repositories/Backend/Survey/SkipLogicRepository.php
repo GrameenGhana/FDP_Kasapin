@@ -38,7 +38,7 @@ class SkipLogicRepository extends BaseRepository
     {
         // Make sure it doesn't already exist
         if ($this->skiplogicExists($data['question_id'])) {
-            throw new GeneralException('A skiplogic already exists with the name '.$data['question_id']);
+            throw new GeneralException('A skiplogic already exists with the question '.$data['question_id']);
         }
 
 
@@ -48,7 +48,6 @@ class SkipLogicRepository extends BaseRepository
                 'question_id' => $data['question_id'],
                 'hide_c' => $data["hide_c"],
                 'formula_c'=> $data['formula_c'],
-                'user_id' => \auth()->user()->id
             ]);
 
 
@@ -74,11 +73,12 @@ class SkipLogicRepository extends BaseRepository
 
 
         // If the name is changing make sure it doesn't already exist
+        /*
         if ($skiplogic->skiplogic_name_c !== $data['question_id']) {
             if ($this->skiplogicExists($data['question_id'])) {
                 throw new GeneralException('A SkipLogic already exists with the name '.$data['question_id']);
             }
-        }
+        }*/
 
 
         return DB::transaction(function () use ($skiplogic, $data) {

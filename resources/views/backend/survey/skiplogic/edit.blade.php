@@ -26,9 +26,10 @@
                         ->for('question')}}
 
                         <div class="col-md-10">
-                            <select class="form-control" name="question" id="question" required>
+                            <select class="form-control" name="question" id="question"   required>
+
                                 @foreach($questions as $question)
-                                    <option value="{{ $question->id }}">{{ $question->label_c }}</option>
+                                    <option value="{{ $question->label_c }}" {{ $question->id == $skiplogic->question->id ? 'selected' :'' }} >{{ $question->label_c }}</option>
                                 @endforeach
                             </select>
 
@@ -87,7 +88,7 @@
                         <div class="col-md-10">
                             <select class="form-control" name="question_id" id="question_id" required>
                                 @foreach($questions as $question)
-                                    <option value="{{ $question->id }}">{{ $question->label_c }}</option>
+                                    <option value="{{ $question->id }}" >{{ $question->label_c }}</option>
                                 @endforeach
                             </select>
 

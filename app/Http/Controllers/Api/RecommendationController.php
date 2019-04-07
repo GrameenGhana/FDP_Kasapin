@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Auth\Input;
+use App\Models\Auth\InputActivity;
+use App\Models\Auth\Recommendation;
 use Illuminate\Http\Request;
 use App\Models\Auth\Crop;
 use App\Models\Auth\Country;
@@ -16,7 +19,7 @@ use JWTAuth;
  *
  *
  * @SWG\Get(
- *      path="/auth/user/recommendation/{crop_id}",
+ *      path="/auth/user/recommendation/{crop_id}/{country_id}",
  *      operationId="api.auth.user.recommendation",
  *      tags={"recommendation"},
  *      summary="Get recommendations and calculations",
@@ -25,6 +28,13 @@ use JWTAuth;
  *      @SWG\Parameter(
  *          name="crop_id",
  *          description="crop id",
+ *          required=true,
+ *          type="integer",
+ *          in="path"
+ *      ),
+ *     @SWG\Parameter(
+ *          name="country_id",
+ *          description="country",
  *          required=true,
  *          type="integer",
  *          in="path"
@@ -49,12 +59,13 @@ use JWTAuth;
 
 class RecommendationController extends Controller
 {
-   public function recommendation(Request $request,Crop $crop)
+   public function recommendation(Request $request,Crop $crop,Country $country)
    {
        $user = JWTAuth::authenticate($request->token);
 
        $dataBuilder = array();
-       $recommendations = $crop->Recommendation()->get();
+     //$recommendations = $crop->Recommendation()->get();
+       $recommendations = Recommendation::where([["crop_id","=",$crop->id],["country_id","=",$country->id]])->get();
 
        foreach($recommendations as $recommendation)
        {
@@ -203,7 +214,6 @@ class RecommendationController extends Controller
       $translations = $country->ActivityTranslation()->get();
 
       $dataBuilder = array();
-      $recommendation_activityBuilder = array();
 
 
       foreach ($translations as $activityTranslation)
@@ -237,5 +247,98 @@ class RecommendationController extends Controller
       }
 
   }
+
+
+    /**
+     *
+     *
+     * @SWG\Get(
+     *      path="/auth/user/inputactivity/{input_id}",
+     *      operationId="api.auth.user.inputactivity",
+     *      tags={"activity"},
+     *      summary="Get input activity from inputs",
+     *      description="Returns input activity from inputs",
+     *
+     *      @SWG\Parameter(
+     *          name="input_id",
+     *          description="input id",
+     *          required=true,
+     *          type="integer",
+     *          in="path"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="token",
+     *          description="authentication token",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation"
+     *       ),
+     *      @SWG\Response(response=401, description="Invalid Credentials")
+     *
+     * )
+     *
+     */
+
+  public function activityInputByInput(Request $request,Input $input)
+  {
+      $user = JWTAuth::authenticate($request->token);
+      if($user){
+          return  response()->json(['data' => $input->InputActivity()->get()],200);
+      }
+      else {
+          return response()->json(['error' => 'invalid_token'], 401);
+      }
+
+  }
+
+    /**
+     *
+     *
+     * @SWG\Get(
+     *      path="/auth/user/inputactivityre/{recommendation_activity_id}",
+     *      operationId="api.auth.user.inputactivitybyrecommendationactivity",
+     *      tags={"activity"},
+     *      summary="Get input activity from recommendationactivity ",
+     *      description="Returns input activity from recommendationactivity",
+     *
+     *      @SWG\Parameter(
+     *          name="recommendation_activity_id",
+     *          description="recommendation activity id",
+     *          required=true,
+     *          type="integer",
+     *          in="path"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="token",
+     *          description="authentication token",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation"
+     *       ),
+     *      @SWG\Response(response=401, description="Invalid Credentials")
+     *
+     * )
+     *
+     */
+
+    public function activityInputByRecommendationActivity(Request $request,RecommendationActivity $recommendationActivity)
+    {
+       $user = JWTAuth::authenticate($request->token);
+        if($user){
+            return  response()->json(['data' => $recommendationActivity->InputActivity()->get()],200);
+        }
+        else {
+            return response()->json(['error' => 'invalid_token'], 401);
+        }
+
+    }
 
 }

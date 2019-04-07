@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
+Route::post('synchupdata','Api\SynchUPController@received_data');
+
 Route::group(['prefix'=>'v1'],function(){
 
 
@@ -39,9 +41,11 @@ Route::group(['prefix'=>'v1'],function(){
           * crop id should come from client
           */
          Route::get('survey/{country}','SurveyController@question');
-         Route::get('recommendation/{crop}','RecommendationController@recommendation');
+         Route::get('recommendation/{crop}/{country}','RecommendationController@recommendation');
          Route::get('input/{crop}','RecommendationController@input');
          Route::get('activity/{country}','RecommendationController@activityInfo');
+         Route::get('inputactivity/{input}','RecommendationController@activityInputByInput');
+         Route::get('inputactivityre/{recommendationActivity}','RecommendationController@activityInputByRecommendationActivity');
 
      });
 

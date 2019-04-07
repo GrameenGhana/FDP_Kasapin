@@ -56,7 +56,7 @@
                         ->for('type_c')}}
 
                         <div class="col-md-10">
-                            {{ html()->select('type_c')->options(['diagnotics'=>'Diagnotics','monitoring'=>'Monitoring','both'=>'Both'])
+                            {{ html()->select('type_c')->options(['diagnostics'=>'Diagnostics','monitoring'=>'Monitoring','both'=>'Both'])
                                 ->class('form-control')
                                 ->required()
                                 }}

@@ -3,6 +3,7 @@
 namespace App\Models\Auth;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Auth\Traits\Relationship\InputRelationship;
 
 class Input extends Model
 {
@@ -15,4 +16,6 @@ class Input extends Model
      */
 
     protected $table = 'input_c';
+
+   use InputRelationship;
 }
