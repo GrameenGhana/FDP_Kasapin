@@ -176,6 +176,9 @@ return [
         App\Providers\ObserverServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        //reportico - reporting
+        Reportico\Reportico\ReporticoServiceProvider::class,
+
 	//Audit Logging
 	OwenIt\Auditing\AuditingServiceProvider::class,
 
