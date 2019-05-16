@@ -35,8 +35,8 @@ class SynchUp implements ShouldQueue
     public function handle(SurveySynchupRepository $survey)
 
     {
-           $combine = array();
-           $dat = $this->formdata;
+        $combine = array();
+        $dat = $this->formdata;
         $farmer_baseline_data = [];
         $farm = [];
        //foreach($dat['data']['farmer_c'] as $value){
@@ -80,12 +80,12 @@ class SynchUp implements ShouldQueue
       if($survey->surveyExist($dat['data'][0]['external_id']) > 0){
 
          $res = $survey->updateById($dat['data'][0]['external_id'],$data);
-          $action = 'data update received on modifications: ';
+         $action = 'data update received on modifications: ';
       }
       else {
           $res = $survey->create($data);
           $action = 'data created received on insertion: ';
       }
-        Log::info($action.json_encode($res));
+      Log::info($action.json_encode($res));
     }
 }
