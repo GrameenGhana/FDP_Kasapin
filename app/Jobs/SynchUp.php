@@ -46,6 +46,7 @@ class SynchUp implements ShouldQueue
             $diagnostic_data = [];
             $observation_data = [];
             $farmer_baseline_data = [];
+            $farm_baseline_c = [];
             $farm = [];
                 Log::info('Data Index :'.json_encode($val));
             if (!empty($val['farmer_c'])) {
@@ -73,8 +74,15 @@ class SynchUp implements ShouldQueue
                         }
                     }
                 }
-                if (!empty($val['plot_c'])) {
 
+            if (!empty($val['farm_baseline_c'])) {
+                foreach ($val['farm_baseline_c'] as $value) {
+                    if (SynchData::check_variable_data($value['answer']) != 1) {
+                        $farm_baseline_data[$value['field_name']] = $value['answer'];
+                    }
+                }
+            }
+                if (!empty($val['plot_c'])) {
                     $plot_data = $val['plot_c'];
                     $diagnostic_data = $val['diagnostic_monitoring_c'];
                     $observation_data = $val['observation_c'];
@@ -89,7 +97,7 @@ class SynchUp implements ShouldQueue
             $combine['surveyor_id'] = $dat['submission']['Surveyor__c'];
             $combine['respondent_id'] = $val['external_id'];
             $combine['country_admin_level_id'] = 1;
-            $data = [$combine, $plot_data, $diagnostic_data, $observation_data, $farmer_baseline_data, $farm];
+            $data = [$combine, $plot_data, $diagnostic_data, $observation_data, $farmer_baseline_data, $farm,$farm_baseline_data];
             if ($survey->surveyExist($val['external_id']) > 0) {
 
                 $res = $survey->updateById($val['external_id'], $data);
