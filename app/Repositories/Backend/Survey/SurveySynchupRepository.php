@@ -9,6 +9,7 @@
 namespace App\Repositories\Backend\Survey;
 
 use App\Helpers\Auth\Auth;
+use App\Helpers\General\SynchData;
 use App\Models\Survey\Diagnostic_monitoring_c;
 use App\Models\Survey\Farm_c;
 use App\Models\Survey\farmer_baseline_c;
@@ -137,7 +138,9 @@ class SurveySynchupRepository extends BaseRepository
 
             foreach ($plot_c as $key => $value) {
                 foreach ($value as $plot_data) {
-                    $plot[$plot_data['field_name']] = $plot_data['answer'];
+                    if (SynchData::check_variable_data($plot_data['answer']) != 1) {
+                        $plot[$plot_data['field_name']] = $plot_data['answer'];
+                    }
                 }
                 $plot['farm_id'] =$model->id;
                 $plot['submission_id'] = $farmer->submission_id;
@@ -185,7 +188,9 @@ class SurveySynchupRepository extends BaseRepository
 
         foreach ($plot_c as $key => $value) {
             foreach ($value as $plot_data) {
-                $plot[$plot_data['field_name']] = $plot_data['answer'];
+                if (SynchData::check_variable_data($plot_data['answer']) != 1) {
+                    $plot[$plot_data['field_name']] = $plot_data['answer'];
+                }
             }
             $plot['submission_id'] = $submissionid;
             $plot['farm_id'] = $farmid;
@@ -193,7 +198,9 @@ class SurveySynchupRepository extends BaseRepository
             $this->Data_Logs('Farmer Plot Data created successfully!!',$pl);
 
             foreach ($diagnostic_data[$key] as $diag_data) {
-                $diagnstic[$diag_data['field_name']] = $diag_data['answer'];
+                if (SynchData::check_variable_data($diag_data['answer']) != 1) {
+                    $diagnstic[$diag_data['field_name']] = $diag_data['answer'];
+                }
             }
             $diagnstic['plot_id'] = $pl->id;
             $diagnstic['submission_id'] = $submissionid;
@@ -204,7 +211,9 @@ class SurveySynchupRepository extends BaseRepository
             foreach ($observation_data[$key] as $obser_data) {
                 $observation['diagnostic_monitoring_id'] = $diag->id;
                 $observation['submission_id'] = $submissionid;
-                $observation[$obser_data['field_name']] = $obser_data['answer'];
+                if(SynchData::check_variable_data($obser_data['answer']) != 1) {
+                    $observation[$obser_data['field_name']] = $obser_data['answer'];
+                }
                 $observation['variable_c'] = $obser_data['variable_c'];
                 $observation['result_c'] = '';
                 $obser =observation_c::create($observation);
@@ -217,7 +226,9 @@ class SurveySynchupRepository extends BaseRepository
             $pl = Plot_c::create($plot);
         $this->Data_Logs('Farmer Plot Data created successfully!!',$pl);
             foreach ($diagnostic_data[$key] as $diag_data) {
-                $diagnstic[$diag_data['field_name']] = $diag_data['answer'];
+                if (SynchData::check_variable_data($diag_data['answer']) != 1) {
+                    $diagnstic[$diag_data['field_name']] = $diag_data['answer'];
+                }
             }
             $diagnstic['plot_id'] = $pl->id;
             $diagnstic['submission_id'] = $submissionid;
@@ -227,7 +238,9 @@ class SurveySynchupRepository extends BaseRepository
             foreach ($observation_data[$key] as $obser_data) {
                 $observation['diagnostic_monitoring_id'] = $diag->id;
                 $observation['submission_id'] = $submissionid;
-                $observation[$obser_data['field_name']] = $obser_data['answer'];
+                if(SynchData::check_variable_data($obser_data['answer']) != 1) {
+                    $observation[$obser_data['field_name']] = $obser_data['answer'];
+                }
                 $observation['variable_c'] = $obser_data['variable_c'];
                 $observation['result_c'] = '';
                $obser = observation_c::create($observation);
@@ -243,14 +256,18 @@ class SurveySynchupRepository extends BaseRepository
         $model->update($plot_c);
         $this->Data_Logs('Farmer Plot Data update successfully!!',$model);
             foreach ($diagnostic_data[$key] as $diag_data) {
-                $diagnstic[$diag_data['field_name']] = $diag_data['answer'];
+                if (SynchData::check_variable_data($diag_data['answer']) != 1) {
+                    $diagnstic[$diag_data['field_name']] = $diag_data['answer'];
+                }
             }
         $model = $this->surveydataupdate( Diagnostic_monitoring_c::class,'external_id_c',$ext_id);
             $model->update($diagnstic);
             $diag =$model;
         $this->Data_Logs('Farmer Diagnostic & Monitoring Data update successfully!!',$diag);
             foreach ($observation_data[$key] as $obser_data) {
-                $observation[$obser_data['field_name']] = $obser_data['answer'];
+                if(SynchData::check_variable_data($obser_data['answer']) != 1) {
+                    $observation[$obser_data['field_name']] = $obser_data['answer'];
+                }
                 $observation['variable_c'] = $obser_data['variable_c'];
                 $observation['result_c'] = '';
                 $model = $this->surveydataupdate( observation_c::class,'variable_c',$observation['variable_c']);
