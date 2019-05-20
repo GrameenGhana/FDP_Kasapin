@@ -11,6 +11,7 @@ namespace App\Repositories\Backend\Survey;
 use App\Helpers\Auth\Auth;
 use App\Helpers\General\SynchData;
 use App\Models\Survey\Diagnostic_monitoring_c;
+use App\Models\Survey\farm_baseline_c;
 use App\Models\Survey\Farm_c;
 use App\Models\Survey\farmer_baseline_c;
 use App\Models\Survey\Farmer_c;
@@ -44,7 +45,8 @@ class SurveySynchupRepository extends BaseRepository
         $observation_data = $alldata[3];
         $baseline_data = $alldata[4];
         $farm = $alldata[5];
-        return DB::transaction(function () use ($data,$plot_c,$diagnostic_data,$observation_data,$baseline_data,$farm) {
+        $farmb = $alldata[6];
+        return DB::transaction(function () use ($data,$plot_c,$diagnostic_data,$observation_data,$baseline_data,$farm,$farmb) {
             /*******CREATING SUBMISSION  DATA************/
             $submission = Submission::create($data);
             $data['submission_id']=$submission->id;
@@ -66,11 +68,21 @@ class SurveySynchupRepository extends BaseRepository
 
             }
 
+
             /*******CREATING FARM  DATA************/
             if(!empty($farm)) {
                 $farm = Farm_c::create($data);
-                $this->Data_Logs('Farmer Farm Data created successfully!!',$farm);
+                $this->Data_Logs('Farmer Farm Data created successfully!!', $farm);
 
+
+                /*******CREATING FARM BASE LINE  DATA************/
+                if (!empty($farmb)) {
+                    $farmb['farm_id'] = $farm->id;
+                    $farmb['submission_id'] = $submission->id;
+                    $famb = farm_baseline_c::create($farmb);
+                    $this->Data_Logs('Farm Baseline Data created successfully!!', $famb);
+
+                }
             }
             if(!empty($plot_c)) {
        $this->plot_data_on_insertion($plot_c,$submission->id,$diagnostic_data,$farm->id,$observation_data);
@@ -90,8 +102,9 @@ class SurveySynchupRepository extends BaseRepository
         $observation_data = $alldata[3];
         $baseline_data = $alldata[4];
         $farm = $alldata[5];
+        $farmb = $alldata[6];
 
-        return DB::transaction(function () use ($id, $data,$plot_c,$diagnostic_data,$observation_data,$baseline_data,$farm,$options) {
+        return DB::transaction(function () use ($id, $data,$plot_c,$diagnostic_data,$observation_data,$baseline_data,$farm,$options,$farmb) {
 
            $model = $this->getByColumn($id, 'external_id_c');
            $model->update($data, $options);
@@ -116,26 +129,45 @@ class SurveySynchupRepository extends BaseRepository
 
             }
 
+
             /*******CREATING FARM  DATA************/
-            if($this->surveydataExist( Farm_c::class,'submission_id',$farmer->submission_id) == 0) {
-                if(!empty($farm)) {
-                    $data['farmer_id']=$farmer->id;
+            if(!empty($farm)) {
+                if ($this->surveydataExist(Farm_c::class, 'submission_id', $farmer->submission_id) == 0) {
+
+                    $data['farmer_id'] = $farmer->id;
                     $data['submission_id'] = $farmer->submission_id;
-                    $data['crop_id']=1;
-                    $data['country_admin_level_c_id']=2;
+                    $data['crop_id'] = 1;
+                    $data['country_admin_level_c_id'] = 2;
                     $farm = Farm_c::create($data);
                     $model = $farm;
-                    $this->Data_Logs('Farmer Farm Data created successfully!!',$farm);
+                    $this->Data_Logs('Farmer Farm Data created successfully!!', $farm);
+                } else {
+                    $model = $this->surveydataupdate(Farm_c::class, 'submission_id', $farmer->submission_id);
+                    $model->update($data);
+                    $farm = $model;
+                    $this->Data_Logs('Farmer Farm Data updated successfully!!', $model);
+
                 }
-            }
-            else{
-                $model = $this->surveydataupdate( Farm_c::class,'submission_id',$farmer->submission_id);
-                $model->update($data);
-                $farm = $model;
-                $this->Data_Logs('Farmer Farm Data updated successfully!!',$model);
+
+
+                /*******CREATING FARM BASE LINE  DATA************/
+
+                if ($this->surveydataExist(farm_baseline_c::class, 'farm_id', $model->id) == 0) {
+                    if (!empty($farmb)) {
+                        $farmb['farm_id'] = $model->id;
+                        $farmb['submission_id'] = $farmer->submission_id;
+                        $famb = farm_baseline_c::create($farmb);
+                        $this->Data_Logs('Farm Baseline Data created successfully!!', $famb);
+
+                    }
+                } else {
+                    $mode = $this->surveydataupdate(farm_baseline_c::class, 'farm_id', $farm->id);
+                    $famb = $mode->update($farmb);
+                    $this->Data_Logs('Farm Baseline Data updated successfully!!', $mode);
+
+                }
 
             }
-
             foreach ($plot_c as $key => $value) {
                 foreach ($value as $plot_data) {
                     if (SynchData::check_variable_data($plot_data['answer']) != 1) {
