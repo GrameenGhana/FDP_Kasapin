@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Auth\User;
 use App\Models\Auth\User;
 use App\Http\Controllers\Controller;
 use App\Events\Backend\Auth\User\UserDeleted;
+use App\Repositories\Backend\Auth\CountryRepository;
 use App\Repositories\Backend\Auth\RoleRepository;
 use App\Repositories\Backend\Auth\UserRepository;
 use App\Repositories\Backend\Auth\PermissionRepository;
@@ -50,15 +51,29 @@ class UserController extends Controller
      *
      * @return mixed
      */
-    public function create(ManageUserRequest $request, RoleRepository $roleRepository, PermissionRepository $permissionRepository)
+    public function create(ManageUserRequest $request, RoleRepository $roleRepository, PermissionRepository $permissionRepository,CountryRepository $countryRepository)
     {
+        $country_data = $countryRepository->get(['id','name']);
+
+
+
+        $countries = array();
+
+        foreach ($country_data as $data)
+        {
+
+            $countries[$data->id] = $data->name;
+
+        }
+        // dd($countries);
         return view('backend.auth.user.create')
             ->withRoles($roleRepository->with('permissions')->get(['id', 'name']))
-            ->withPermissions($permissionRepository->get(['id', 'name']));
+            ->withPermissions($permissionRepository->get(['id', 'name']))
+            ->withCountries($countries);
     }
 
     /**
-     * @param StoreUserRequest $request
+     * @param StoreUserRequetst $request
      *
      * @return mixed
      * @throws \Throwable
@@ -74,7 +89,8 @@ class UserController extends Controller
             'confirmed',
             'confirmation_email',
             'roles',
-            'permissions'
+            'permissions',
+            'country'
         ));
 
         return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.users.created'));

@@ -49,6 +49,18 @@
                         </div><!--form-group-->
 
                         <div class="form-group row">
+                            {{html()->label(__('validation.attributes.backend.access.users.country'))
+                            ->class('col-md-2 form-control-label')
+                            ->for('country')}}
+
+                            <div class="col-md-10">
+                                {{ html()->select('country')->options($countries)
+                                    ->class('form-control')}}
+                            </div><!--col-->
+                        </div>
+
+
+                        <div class="form-group row">
                             {{ html()->label(__('validation.attributes.backend.access.users.email'))->class('col-md-2 form-control-label')->for('email') }}
 
                             <div class="col-md-10">

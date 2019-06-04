@@ -172,6 +172,7 @@ return [
                     'confirmed'               => 'Confirmed',
                     'email'                   => 'E-mail Address',
                     'name'                    => 'Name',
+                    'country'                 => 'Country',
                     'other_permissions'       => 'Other Permissions',
                     'password'                => 'Password',
                     'password_confirmation'   => 'Password Confirmation',

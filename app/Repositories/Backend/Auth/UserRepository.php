@@ -105,6 +105,7 @@ class UserRepository extends BaseRepository
                 'last_name' => $data['last_name'],
                 'email' => $data['email'],
                 'password' => $data['password'],
+                'country_id' => $data['country'],
                 'active' => isset($data['active']) && $data['active'] == '1' ? 1 : 0,
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed' => isset($data['confirmed']) && $data['confirmed'] == '1' ? 1 : 0,

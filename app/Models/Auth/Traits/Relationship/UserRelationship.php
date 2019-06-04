@@ -2,6 +2,7 @@
 
 namespace App\Models\Auth\Traits\Relationship;
 
+use App\Models\Auth\Country;
 use App\Models\System\Session;
 use App\Models\Auth\SocialAccount;
 use App\Models\Auth\PasswordHistory;
@@ -33,5 +34,12 @@ trait UserRelationship
     public function passwordHistories()
     {
         return $this->hasMany(PasswordHistory::class);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function country(){
+        return $this->belongsTo(Country::class,'country_id');
     }
 }

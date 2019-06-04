@@ -52,46 +52,53 @@ class SurveyController extends APIcontroller
  public function  question(Request $request,Country $country)
 
  {
-    // dd($request->all());
+
      $user = JWTAuth::authenticate($request->token);
 
       $country =  Country::find($country->id);
 
       $translations = $country->formTranslation();
       $dataBuilder = array();
-      $questionbuilder = array();
+
+
+
 
       $formTranslation = $translations->get();
 
+
+         //loop through form translation to get questions to populate json
       foreach($formTranslation as $translation)
       {
+
           $questions = Question::where('form_translation_id',$translation->id)->get();
+          $questionbuilder = array();
+            if(count($questions)>0) {
+                foreach ($questions as $question) {
 
-          foreach ($questions as  $question)
-          {
-
-              $questionData = array(
-                  'question' => $question,
-                  'skiplogic' => SkipLogic::where('question_id',$question->id)->get(),
-                  'map' => QuestionMap::where('question_id',$question->id)->get()
-              );
-
-              array_push($questionbuilder,$questionData);
-
-          }
+                    $questionData = array(
+                        'question' => $question,
+                        'skiplogic' => SkipLogic::where('question_id', $question->id)->get(),
+                        'map' => QuestionMap::where('question_id', $question->id)->get()
+                    );
 
 
-          $responseBuilder = array(
-              'id' => $translation->id,
-              'name'=> $translation->display_name_c,
-              'form_id' => $translation->form_id,
-              'form' => Form::find($translation->form_id),
-              'questions' => $questionbuilder,
+                    array_push($questionbuilder, $questionData);
+
+                }
+
+                $responseBuilder = array(
+                    'id' => $translation->id,
+                    'name' => $translation->display_name_c,
+                    'form_id' => $translation->form_id,
+                    'form' => Form::find($translation->form_id),
+                    'questions' => $questionbuilder,
 
 
-          );
+                );
 
-          array_push($dataBuilder ,$responseBuilder);
+                unset($questionbuilder);
+                array_push($dataBuilder, $responseBuilder);
+            }
 
       }
 
@@ -99,7 +106,7 @@ class SurveyController extends APIcontroller
 
      if($user)
      {
-        return response()->json(['data' => $dataBuilder],200);
+       return response()->json(['data' => $dataBuilder],200);
 
      }else{
          return response()->json(['error' => 'invalid_token'], 401);
