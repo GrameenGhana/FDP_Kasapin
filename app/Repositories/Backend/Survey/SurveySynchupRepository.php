@@ -46,19 +46,33 @@ class SurveySynchupRepository extends BaseRepository
         $baseline_data = $alldata[4];
         $farm = $alldata[5];
         $farmb = $alldata[6];
-        return DB::transaction(function () use ($data,$plot_c,$diagnostic_data,$observation_data,$baseline_data,$farm,$farmb) {
+        $farmers = $alldata[7];
+        return DB::transaction(function () use ($data,$plot_c,$diagnostic_data,$observation_data,$baseline_data,$farm,$farmb,$farmers) {
             /*******CREATING SUBMISSION  DATA************/
             $submission = Submission::create($data);
             $data['submission_id']=$submission->id;
             $data['crop_id']=1;
             $data['country_admin_level_c_id']=2;
             /*******CREATING FARMER  DATA************/
-            $farmer = parent::create($data);
-            $data['farmer_id']=$farmer->id;
-            $this->Data_Logs('Farmer  Data created successfully!!',$farmer);
+            if(!empty($farmers)) {
+                $farmer = parent::create($data);
+                $data['farmer_id'] = $farmer->id;
+                $this->Data_Logs('Farmer  Data created successfully!!', $farmer);
 
+                /*******CREATING FARM  DATA************/
+               // if(!empty($farm)) {
+                    $farm = Farm_c::create($data);
+                    $this->Data_Logs('Farmer Farm Data created successfully!!', $farm);
 
+            }
+                else{
+                    /*******CREATING FARM  DATA************/
+                    if (!empty($farm)) {
+                        $farm = Farm_c::create($data);
+                        $this->Data_Logs('Farmer Farm Data created successfully!!', $farm);
 
+                    }
+                }
             /*******CREATING FARMER BASE LINE  DATA************/
             if(!empty($baseline_data)) {
                 $baseline_data['farmer_id'] = $farmer->id;
@@ -69,10 +83,6 @@ class SurveySynchupRepository extends BaseRepository
             }
 
 
-            /*******CREATING FARM  DATA************/
-            if(!empty($farm)) {
-                $farm = Farm_c::create($data);
-                $this->Data_Logs('Farmer Farm Data created successfully!!', $farm);
 
 
                 /*******CREATING FARM BASE LINE  DATA************/
@@ -83,7 +93,7 @@ class SurveySynchupRepository extends BaseRepository
                     $this->Data_Logs('Farm Baseline Data created successfully!!', $famb);
 
                 }
-            }
+
             if(!empty($plot_c)) {
        $this->plot_data_on_insertion($plot_c,$submission->id,$diagnostic_data,$farm->id,$observation_data);
                 $this->Data_Logs('Farmer Plot Data created successfully!!',json_encode($plot_c));
@@ -131,9 +141,8 @@ class SurveySynchupRepository extends BaseRepository
 
 
             /*******CREATING FARM  DATA************/
-            if(!empty($farm)) {
-                if ($this->surveydataExist(Farm_c::class, 'submission_id', $farmer->submission_id) == 0) {
 
+                if ($this->surveydataExist(Farm_c::class, 'submission_id', $farmer->submission_id) == 0) {
                     $data['farmer_id'] = $farmer->id;
                     $data['submission_id'] = $farmer->submission_id;
                     $data['crop_id'] = 1;
@@ -167,7 +176,7 @@ class SurveySynchupRepository extends BaseRepository
 
                 }
 
-            }
+
             foreach ($plot_c as $key => $value) {
                 foreach ($value as $plot_data) {
                     if (SynchData::check_variable_data($plot_data['answer']) != 1) {
