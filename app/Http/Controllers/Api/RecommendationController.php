@@ -78,6 +78,7 @@ class RecommendationController extends Controller
                'change_condition' => $recommendation->change_condition_c,
                'change_option' => $recommendation->change_option_c,
                'country'     => $recommendation->country_id,
+               'reco_name'  => $recommendation->reco_name_c,
                'calculations' => RecommendationCalculation::where('recommendation_id',$recommendation->id)->get(),
                'recommendation_activity' => RecommendationActivity::where('recommendation_id',$recommendation->id)->get()
            );
