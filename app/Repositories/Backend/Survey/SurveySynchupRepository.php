@@ -180,7 +180,12 @@ class SurveySynchupRepository extends BaseRepository
             foreach ($plot_c as $key => $value) {
                 foreach ($value as $plot_data) {
                     if (SynchData::check_variable_data($plot_data['answer']) != 1) {
-                        $plot[$plot_data['field_name']] = $plot_data['answer'];
+                        if($plot_data['field_name'] == 'estimated_production_kg_c') {
+                             $plot['estimated_production_c'] =$plot_data['answer'];
+                        }
+                        else {
+                            $plot[$plot_data['field_name']] = $plot_data['answer'];
+                        }
                     }
                 }
                 $plot['farm_id'] =$model->id;
@@ -230,7 +235,12 @@ class SurveySynchupRepository extends BaseRepository
         foreach ($plot_c as $key => $value) {
             foreach ($value as $plot_data) {
                 if (SynchData::check_variable_data($plot_data['answer']) != 1) {
-                    $plot[$plot_data['field_name']] = $plot_data['answer'];
+                    if($plot_data['field_name'] == 'estimated_production_kg_c') {
+                         $plot['estimated_production_c'] =$plot_data['answer'];
+                    }
+                    else {
+                        $plot[$plot_data['field_name']] = $plot_data['answer'];
+                    }
                 }
             }
             $plot['submission_id'] = $submissionid;
