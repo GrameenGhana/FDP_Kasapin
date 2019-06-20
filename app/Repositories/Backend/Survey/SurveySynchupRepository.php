@@ -229,6 +229,11 @@ class SurveySynchupRepository extends BaseRepository
         return $objectname::where($columnid, $uuid)
             ->first();
     }
+    public function surveydatamultiupdate($objectname,$columnid,$uuid,$col2,$uuid2)
+    {
+        return $objectname::where($columnid, $uuid)->where($col2, $uuid2)
+            ->first();
+    }
 
     public function plot_data_on_insertion($plot_c,$submissionid,$diagnostic_data,$farmid,$observation_data){
 
@@ -321,7 +326,8 @@ class SurveySynchupRepository extends BaseRepository
                 }
                 $observation['variable_c'] = $obser_data['variable_c'];
                 $observation['result_c'] = '';
-                $model = $this->surveydataupdate( observation_c::class,'variable_c',$observation['variable_c']);
+                $model = $this->surveydatamultiupdate( observation_c::class,'variable_c',$observation['variable_c'],'diagnostic_monitoring_id',
+                    $diag->id );
                 $model->update($observation);
                 $obser = $model;
                 $this->Data_Logs('Farmer Observation Data updated successfully!!',$obser);
