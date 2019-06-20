@@ -48,16 +48,23 @@ class SynchUp implements ShouldQueue
             $farmer_baseline_data = [];
             $farm_baseline_c = [];
             $farm = [];
+            $farmer = [];
                 Log::info('Data Index :'.json_encode($val));
             if (!empty($val['farmer_c'])) {
+                $farmer = $val['farmer_c'];
                 foreach ($val['farmer_c'] as $value) {
                     if (SynchData::check_variable_data($value['answer']) != 1) {
                         $combine[$value['field_name']] = $value['answer'];
                     }
                 }
-            }
                 $combine['birthday_c'] = $combine['birthday_c'] . '-01-01';
-                Log::info(json_encode($combine));
+            }
+            else{
+
+               $farmer =[];
+            }
+                //$combine['birthday_c'] = $combine['birthday_c'] . '-01-01';
+               // Log::info(json_encode($combine));
                 if (!empty($val['farm_c'])) {
                     $farm = $val['farm_c'];
                     foreach ($val['farm_c'] as $value) {
@@ -65,6 +72,10 @@ class SynchUp implements ShouldQueue
                             $combine[$value['field_name']] = $value['answer'];
                         }
                     }
+                }
+                else{
+
+                    $farm = [];
                 }
 
                 if (!empty($val['farmer_baseline_c'])) {
@@ -82,6 +93,10 @@ class SynchUp implements ShouldQueue
                     }
                 }
             }
+            else{
+                $farm_baseline_data = [];
+
+            }
                 if (!empty($val['plot_c'])) {
                     $plot_data = $val['plot_c'];
                     $diagnostic_data = $val['diagnostic_monitoring_c'];
@@ -97,7 +112,7 @@ class SynchUp implements ShouldQueue
             $combine['surveyor_id'] = $dat['submission']['Surveyor__c'];
             $combine['respondent_id'] = $val['external_id'];
             $combine['country_admin_level_id'] = 1;
-            $data = [$combine, $plot_data, $diagnostic_data, $observation_data, $farmer_baseline_data, $farm,$farm_baseline_data];
+            $data = [$combine, $plot_data, $diagnostic_data, $observation_data, $farmer_baseline_data, $farm,$farm_baseline_data,$farmer];
             if ($survey->surveyExist($val['external_id']) > 0) {
 
                 $res = $survey->updateById($val['external_id'], $data);

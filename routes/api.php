@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::post('synchupdata','Api\SynchUPController@received_data');
+Route::post('syncdowndata','Api\SynchDownController@sync_down_agronomist_data');
 
 Route::group(['prefix'=>'v1'],function(){
 
