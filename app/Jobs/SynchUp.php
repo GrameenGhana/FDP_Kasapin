@@ -54,6 +54,14 @@ class SynchUp implements ShouldQueue
                 $farmer = $val['farmer_c'];
                 foreach ($val['farmer_c'] as $value) {
                     if (SynchData::check_variable_data($value['answer']) != 1) {
+                       if($value['field_name'] == 'household_gps_lat_c,household_gps_long_c'){
+                          $split =  SynchData::split_gps($value['field_name']);
+                           $split_answers =  SynchData::split_gps($value['answer']);
+                           $combine[$split[0]] = $split_answers[0];
+                           $combine[$split[1]] = $split_answers[1];
+
+                       }
+
                         $combine[$value['field_name']] = $value['answer'];
                     }
                 }

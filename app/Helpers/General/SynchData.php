@@ -47,4 +47,18 @@ class SynchData
             return 0;
         }
     }
+
+
+    public static function split_gps($data)
+    {
+
+        if($data != ''){
+
+           $splitter = explode(',',$data);
+           return $splitter;
+        }
+        else{
+            return $data;
+        }
+    }
 }
