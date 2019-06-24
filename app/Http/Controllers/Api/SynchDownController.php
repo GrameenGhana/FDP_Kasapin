@@ -32,7 +32,7 @@ class SynchDownController extends Controller
         $sql_get_all_farmers_under_agronomist = "SELECT id,respondent_id FROM submission_c WHERE surveyor_id = '$surveyorID'  limit $pstart,$pend   ";
           $sql_get_form_ids = "select id from  form_c";
          $count_total = DB::table('submission_c')->WHERE('surveyor_id',$surveyorID)->count();
-          DB::statement($sqltable);
+         DB::statement($sqltable);
          DB::statement($sqltrunc);
          DB::statement($sqlgenerate);
          $farmers = DB::select($sql_get_all_farmers_under_agronomist);
