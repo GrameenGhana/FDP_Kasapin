@@ -22,10 +22,10 @@ class SynchDownController extends Controller
         if($pstart < 0){
             $pstart = 0;
         }
-        $sqltable= "CREATE TEMPORARY TABLE IF NOT EXISTS repfarmertemp (question_id integer ,form_id integer , country_id integer ,
+        $sqltable= "CREATE TEMPORARY TABLE IF NOT EXISTS repfarmertemp (question_id varchar(500) ,form_id integer , country_id integer ,
         object_c varchar (300),field_c varchar (300))";
         $sqltrunc = "TRUNCATE TABLE repfarmertemp;";
-        $sqlgenerate = "INSERT INTO repfarmertemp(question_id,form_id,country_id,object_c,field_c) SELECT q.id,f.form_id,f.country_id,m.object_c,m.field_c from question_c q join form_translation_c f on
+        $sqlgenerate = "INSERT INTO repfarmertemp(question_id,form_id,country_id,object_c,field_c) SELECT q.label_c,f.form_id,f.country_id,m.object_c,m.field_c from question_c q join form_translation_c f on
             q.form_translation_id = f.id join map_c m on q.id = m.question_id where f.country_id ='$countryID'
 ";        $sql = "select * from repfarmertemp";
 

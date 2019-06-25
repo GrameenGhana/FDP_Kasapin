@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: spomega
- * Date: 10/8/18
- * Time: 11:42 AM
- */
-
 namespace App\Repositories\Backend\Survey;
 
 use App\Helpers\Auth\Auth;
@@ -33,7 +26,7 @@ class SurveySynchupRepository extends BaseRepository
      */
     public function model()
     {
-       return Farmer_c::class;
+        return Farmer_c::class;
     }
 
 
@@ -52,7 +45,7 @@ class SurveySynchupRepository extends BaseRepository
             $submission = Submission::create($data);
             $data['submission_id']=$submission->id;
             $data['crop_id']=1;
-            $data['country_admin_level_c_id']=2;
+            $data['country_admin_level_c_id']=3;
             /*******CREATING FARMER  DATA************/
             if(!empty($farmers)) {
                 $farmer = parent::create($data);
@@ -60,19 +53,19 @@ class SurveySynchupRepository extends BaseRepository
                 $this->Data_Logs('Farmer  Data created successfully!!', $farmer);
 
                 /*******CREATING FARM  DATA************/
-               // if(!empty($farm)) {
+                // if(!empty($farm)) {
+                $farm = Farm_c::create($data);
+                $this->Data_Logs('Farmer Farm Data created successfully!!', $farm);
+
+            }
+            else{
+                /*******CREATING FARM  DATA************/
+                if (!empty($farm)) {
                     $farm = Farm_c::create($data);
                     $this->Data_Logs('Farmer Farm Data created successfully!!', $farm);
 
-            }
-                else{
-                    /*******CREATING FARM  DATA************/
-                    if (!empty($farm)) {
-                        $farm = Farm_c::create($data);
-                        $this->Data_Logs('Farmer Farm Data created successfully!!', $farm);
-
-                    }
                 }
+            }
             /*******CREATING FARMER BASE LINE  DATA************/
             if(!empty($baseline_data)) {
                 $baseline_data['farmer_id'] = $farmer->id;
@@ -85,22 +78,22 @@ class SurveySynchupRepository extends BaseRepository
 
 
 
-                /*******CREATING FARM BASE LINE  DATA************/
-                if (!empty($farmb)) {
-                    $farmb['farm_id'] = $farm->id;
-                    $farmb['submission_id'] = $submission->id;
-                    $famb = farm_baseline_c::create($farmb);
-                    $this->Data_Logs('Farm Baseline Data created successfully!!', $famb);
+            /*******CREATING FARM BASE LINE  DATA************/
+            if (!empty($farmb)) {
+                $farmb['farm_id'] = $farm->id;
+                $farmb['submission_id'] = $submission->id;
+                $famb = farm_baseline_c::create($farmb);
+                $this->Data_Logs('Farm Baseline Data created successfully!!', $famb);
 
-                }
+            }
 
             if(!empty($plot_c)) {
-       $this->plot_data_on_insertion($plot_c,$submission->id,$diagnostic_data,$farm->id,$observation_data);
+                $this->plot_data_on_insertion($plot_c,$submission->id,$diagnostic_data,$farm->id,$observation_data);
                 $this->Data_Logs('Farmer Plot Data created successfully!!',json_encode($plot_c));
             }
             return $farmer;
         });
-      return 'failed';
+        return 'failed';
     }
 
 
@@ -116,9 +109,9 @@ class SurveySynchupRepository extends BaseRepository
 
         return DB::transaction(function () use ($id, $data,$plot_c,$diagnostic_data,$observation_data,$baseline_data,$farm,$options,$farmb) {
 
-           $model = $this->getByColumn($id, 'external_id_c');
-           $model->update($data, $options);
-           $farmer = $model;
+            $model = $this->getByColumn($id, 'external_id_c');
+            $model->update($data, $options);
+            $farmer = $model;
             $this->Data_Logs('Farmer Data updated successfully!!',$model);
 
             /*******CREATING FARMER BASE LINE  DATA************/
@@ -134,7 +127,7 @@ class SurveySynchupRepository extends BaseRepository
             }
             else{
                 $model = $this->surveydataupdate(farmer_baseline_c::class,'farmer_id',$farmer->id);
-               $base = $model->update($baseline_data);
+                $base = $model->update($baseline_data);
                 $this->Data_Logs('Farmer Baseline Data updated successfully!!',$model);
 
             }
@@ -142,46 +135,46 @@ class SurveySynchupRepository extends BaseRepository
 
             /*******CREATING FARM  DATA************/
 
-                if ($this->surveydataExist(Farm_c::class, 'submission_id', $farmer->submission_id) == 0) {
-                    $data['farmer_id'] = $farmer->id;
-                    $data['submission_id'] = $farmer->submission_id;
-                    $data['crop_id'] = 1;
-                    $data['country_admin_level_c_id'] = 2;
-                    $farm = Farm_c::create($data);
-                    $model = $farm;
-                    $this->Data_Logs('Farmer Farm Data created successfully!!', $farm);
-                } else {
-                    $model = $this->surveydataupdate(Farm_c::class, 'submission_id', $farmer->submission_id);
-                    $model->update($data);
-                    $farm = $model;
-                    $this->Data_Logs('Farmer Farm Data updated successfully!!', $model);
+            if ($this->surveydataExist(Farm_c::class, 'submission_id', $farmer->submission_id) == 0) {
+                $data['farmer_id'] = $farmer->id;
+                $data['submission_id'] = $farmer->submission_id;
+                $data['crop_id'] = 1;
+                $data['country_admin_level_c_id'] = 3;
+                $farm = Farm_c::create($data);
+                $model = $farm;
+                $this->Data_Logs('Farmer Farm Data created successfully!!', $farm);
+            } else {
+                $model = $this->surveydataupdate(Farm_c::class, 'submission_id', $farmer->submission_id);
+                $model->update($data);
+                $farm = $model;
+                $this->Data_Logs('Farmer Farm Data updated successfully!!', $model);
+
+            }
+
+
+            /*******CREATING FARM BASE LINE  DATA************/
+
+            if ($this->surveydataExist(farm_baseline_c::class, 'farm_id', $model->id) == 0) {
+                if (!empty($farmb)) {
+                    $farmb['farm_id'] = $model->id;
+                    $farmb['submission_id'] = $farmer->submission_id;
+                    $famb = farm_baseline_c::create($farmb);
+                    $this->Data_Logs('Farm Baseline Data created successfully!!', $famb);
 
                 }
+            } else {
+                $mode = $this->surveydataupdate(farm_baseline_c::class, 'farm_id', $farm->id);
+                $famb = $mode->update($farmb);
+                $this->Data_Logs('Farm Baseline Data updated successfully!!', $mode);
 
-
-                /*******CREATING FARM BASE LINE  DATA************/
-
-                if ($this->surveydataExist(farm_baseline_c::class, 'farm_id', $model->id) == 0) {
-                    if (!empty($farmb)) {
-                        $farmb['farm_id'] = $model->id;
-                        $farmb['submission_id'] = $farmer->submission_id;
-                        $famb = farm_baseline_c::create($farmb);
-                        $this->Data_Logs('Farm Baseline Data created successfully!!', $famb);
-
-                    }
-                } else {
-                    $mode = $this->surveydataupdate(farm_baseline_c::class, 'farm_id', $farm->id);
-                    $famb = $mode->update($farmb);
-                    $this->Data_Logs('Farm Baseline Data updated successfully!!', $mode);
-
-                }
+            }
 
 
             foreach ($plot_c as $key => $value) {
                 foreach ($value as $plot_data) {
                     if (SynchData::check_variable_data($plot_data['answer']) != 1) {
                         if($plot_data['field_name'] == 'estimated_production_kg_c') {
-                             $plot['estimated_production_c'] =$plot_data['answer'];
+                            $plot['estimated_production_c'] =$plot_data['answer'];
                         }
                         else {
                             $plot[$plot_data['field_name']] = $plot_data['answer'];
@@ -190,15 +183,15 @@ class SurveySynchupRepository extends BaseRepository
                 }
                 $plot['farm_id'] =$model->id;
                 $plot['submission_id'] = $farmer->submission_id;
-               $external_id =  $plot['external_id_c'];
-                    if ($this->surveydataExist(Plot_c::class, 'external_id_c', $external_id) == 0) {
-                        if (!empty($plot_c)) {
-                            $this->plot_data_on_update_insertion($plot, $farmer->submission_id, $diagnostic_data, $model->id, $observation_data,$key);
-                        }
-                }
-                    else{
-                        $this->plot_data_on_update($plot,$diagnostic_data,$observation_data,$key,$external_id);
+                $external_id =  $plot['external_id_c'];
+                if ($this->surveydataExist(Plot_c::class, 'external_id_c', $external_id) == 0) {
+                    if (!empty($plot_c)) {
+                        $this->plot_data_on_update_insertion($plot, $farmer->submission_id, $diagnostic_data, $model->id, $observation_data,$key);
                     }
+                }
+                else{
+                    $this->plot_data_on_update($plot,$diagnostic_data,$observation_data,$key,$external_id);
+                }
             }
             return $model;
         });
@@ -213,8 +206,8 @@ class SurveySynchupRepository extends BaseRepository
     public function surveyExist($uuid) : bool
     {
         return $this->model
-                ->where('external_id_c', $uuid)
-                ->count();
+            ->where('external_id_c', $uuid)
+            ->count();
     }
 
 
@@ -241,7 +234,7 @@ class SurveySynchupRepository extends BaseRepository
             foreach ($value as $plot_data) {
                 if (SynchData::check_variable_data($plot_data['answer']) != 1) {
                     if($plot_data['field_name'] == 'estimated_production_kg_c') {
-                         $plot['estimated_production_c'] =$plot_data['answer'];
+                        $plot['estimated_production_c'] =$plot_data['answer'];
                     }
                     else {
                         $plot[$plot_data['field_name']] = $plot_data['answer'];
@@ -279,31 +272,31 @@ class SurveySynchupRepository extends BaseRepository
         }
     }
     public function plot_data_on_update_insertion($plot,$submissionid,$diagnostic_data,$farmid,$observation_data,$key){
-            $pl = Plot_c::create($plot);
+        $pl = Plot_c::create($plot);
         $this->Data_Logs('Farmer Plot Data created successfully!!',$pl);
-            foreach ($diagnostic_data[$key] as $diag_data) {
-                if (SynchData::check_variable_data($diag_data['answer']) != 1) {
-                    $diagnstic[$diag_data['field_name']] = $diag_data['answer'];
-                }
+        foreach ($diagnostic_data[$key] as $diag_data) {
+            if (SynchData::check_variable_data($diag_data['answer']) != 1) {
+                $diagnstic[$diag_data['field_name']] = $diag_data['answer'];
             }
-            $diagnstic['plot_id'] = $pl->id;
-            $diagnstic['submission_id'] = $submissionid;
-            $diagnstic['external_id_c'] = $plot['external_id_c'];
-            $diag = Diagnostic_monitoring_c::create($diagnstic);
-        $this->Data_Logs('Farmer Diagnostic & Monitoring Data created successfully!!',$diag);
-            foreach ($observation_data[$key] as $obser_data) {
-                $observation['diagnostic_monitoring_id'] = $diag->id;
-                $observation['submission_id'] = $submissionid;
-                if(SynchData::check_variable_data($obser_data['answer']) != 1) {
-                    $observation[$obser_data['field_name']] = $obser_data['answer'];
-                }
-                $observation['variable_c'] = $obser_data['variable_c'];
-                $observation['result_c'] = '';
-               $obser = observation_c::create($observation);
-                $this->Data_Logs('Farmer Observation Data created successfully!!',$obser);
-            }
-
         }
+        $diagnstic['plot_id'] = $pl->id;
+        $diagnstic['submission_id'] = $submissionid;
+        $diagnstic['external_id_c'] = $plot['external_id_c'];
+        $diag = Diagnostic_monitoring_c::create($diagnstic);
+        $this->Data_Logs('Farmer Diagnostic & Monitoring Data created successfully!!',$diag);
+        foreach ($observation_data[$key] as $obser_data) {
+            $observation['diagnostic_monitoring_id'] = $diag->id;
+            $observation['submission_id'] = $submissionid;
+            if(SynchData::check_variable_data($obser_data['answer']) != 1) {
+                $observation[$obser_data['field_name']] = $obser_data['answer'];
+            }
+            $observation['variable_c'] = $obser_data['variable_c'];
+            $observation['result_c'] = '';
+            $obser = observation_c::create($observation);
+            $this->Data_Logs('Farmer Observation Data created successfully!!',$obser);
+        }
+
+    }
 
 
 
@@ -311,27 +304,27 @@ class SurveySynchupRepository extends BaseRepository
         $model = $this->surveydataupdate( Plot_c::class,'external_id_c', $ext_id);
         $model->update($plot_c);
         $this->Data_Logs('Farmer Plot Data update successfully!!',$model);
-            foreach ($diagnostic_data[$key] as $diag_data) {
-                if (SynchData::check_variable_data($diag_data['answer']) != 1) {
-                    $diagnstic[$diag_data['field_name']] = $diag_data['answer'];
-                }
+        foreach ($diagnostic_data[$key] as $diag_data) {
+            if (SynchData::check_variable_data($diag_data['answer']) != 1) {
+                $diagnstic[$diag_data['field_name']] = $diag_data['answer'];
             }
+        }
         $model = $this->surveydataupdate( Diagnostic_monitoring_c::class,'external_id_c',$ext_id);
-            $model->update($diagnstic);
-            $diag =$model;
+        $model->update($diagnstic);
+        $diag =$model;
         $this->Data_Logs('Farmer Diagnostic & Monitoring Data update successfully!!',$diag);
-            foreach ($observation_data[$key] as $obser_data) {
-                if(SynchData::check_variable_data($obser_data['answer']) != 1) {
-                    $observation[$obser_data['field_name']] = $obser_data['answer'];
-                }
-                $observation['variable_c'] = $obser_data['variable_c'];
-                $observation['result_c'] = '';
-                $model = $this->surveydatamultiupdate( observation_c::class,'variable_c',$observation['variable_c'],'diagnostic_monitoring_id',
-                    $diag->id );
-                $model->update($observation);
-                $obser = $model;
-                $this->Data_Logs('Farmer Observation Data updated successfully!!',$obser);
+        foreach ($observation_data[$key] as $obser_data) {
+            if(SynchData::check_variable_data($obser_data['answer']) != 1) {
+                $observation[$obser_data['field_name']] = $obser_data['answer'];
             }
+            $observation['variable_c'] = $obser_data['variable_c'];
+            $observation['result_c'] = '';
+            $model = $this->surveydatamultiupdate( observation_c::class,'variable_c',$observation['variable_c'],'diagnostic_monitoring_id',
+                $diag->id );
+            $model->update($observation);
+            $obser = $model;
+            $this->Data_Logs('Farmer Observation Data updated successfully!!',$obser);
+        }
 
     }
 
