@@ -78,8 +78,7 @@ class UserController extends Controller
      * @return mixed
      * @throws \Throwable
      */
-    public function store(StoreUserRequest $request)
-    {
+    public function store(StoreUserRequest $request)    {
         $this->userRepository->create($request->only(
             'first_name',
             'last_name',

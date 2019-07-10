@@ -47,6 +47,7 @@ Route::group(['prefix'=>'v1'],function(){
          Route::get('activity/{country}','RecommendationController@activityInfo');
          Route::get('inputactivity/{input}','RecommendationController@activityInputByInput');
          Route::get('inputactivityre/{recommendationActivity}','RecommendationController@activityInputByRecommendationActivity');
+         Route::get('countryadmin/{country}','AdminLevelController@districtVillage');
 
      });
 
