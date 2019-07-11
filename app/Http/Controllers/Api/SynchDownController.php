@@ -54,7 +54,7 @@ class SynchDownController extends Controller
                  $answers= [];
                  $static_farmer_data = [];
                  $table_name = 'farmer_c';
-                 $static_farmer_data =['full_name_c','farmer_code_c	','educational_level_c','birthday_c','gender_c','farmer_photo_c'];
+                 $static_farmer_data =['full_name_c','farmer_code_c	','educational_level_c','birthday_c','gender_c','farmer_photo_c','country_admin_level_id'];
                      foreach($bundledata as $bundle){
         if($bundle->field_c == 'household_gps_lat_c,household_gps_long_c'){
 
