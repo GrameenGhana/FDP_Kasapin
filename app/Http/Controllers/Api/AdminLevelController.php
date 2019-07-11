@@ -58,6 +58,7 @@ class AdminLevelController extends APIcontroller
         foreach( $districts as $district){
 
             $responseBuilder = array(
+                'id' => $district->id,
                 'district' => $district->name,
                 'communities' => CountryAdminLevel::where('parent_id',$district->id)->get()
             );
