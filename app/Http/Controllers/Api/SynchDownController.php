@@ -23,9 +23,9 @@ class SynchDownController extends Controller
             $pstart = 0;
         }
         $sqltable= "CREATE TEMPORARY TABLE IF NOT EXISTS repfarmertemp (question_id varchar(500) ,form_id integer , country_id integer ,
-        object_c varchar (300),field_c varchar (300))";
+        object_c varchar (300),field_c varchar (300),form_translation_id integer)";
         $sqltrunc = "TRUNCATE TABLE repfarmertemp;";
-        $sqlgenerate = "INSERT INTO repfarmertemp(question_id,form_id,country_id,object_c,field_c) SELECT q.label_c,f.form_id,f.country_id,m.object_c,m.field_c from question_c q join form_translation_c f on
+        $sqlgenerate = "INSERT INTO repfarmertemp(question_id,form_id,country_id,object_c,field_c,form_translation_id) SELECT q.label_c,f.form_id,f.country_id,m.object_c,m.field_c,f.id from question_c q join form_translation_c f on
             q.form_translation_id = f.id join map_c m on q.id = m.question_id where f.country_id ='$countryID'
 ";        $sql = "select * from repfarmertemp";
 
@@ -35,6 +35,10 @@ class SynchDownController extends Controller
          DB::statement($sqltable);
          DB::statement($sqltrunc);
          DB::statement($sqlgenerate);
+
+       /* return response()->json([
+        'data'=> DB::select($sql)]);*/
+
          $farmers = DB::select($sql_get_all_farmers_under_agronomist);
         $farmIDS = DB::select($sql_get_form_ids);
          foreach($farmers as $farmer){
@@ -68,6 +72,7 @@ class SynchDownController extends Controller
             } else {
                 $fields = json_decode($values, true);
                 $field = $fields[0]['dataout'];
+                //$translationID = $fields[0]['form_translation_id'];
                 if ($bundle->field_c == 'birthday_c') {
                     $field = $this->strip_to_get($fields[0]['dataout']);
                 }
@@ -94,8 +99,8 @@ class SynchDownController extends Controller
 
                      }
                      $static_farmer_data["farmer_code"]=$farmer->respondent_id;
-                     $FIDS[] = array("farmer_code"=>$farmer->respondent_id,"form_id"=>$farmid->id
-                     ,"data"=>$answers);
+                     $FIDS[] = array("farmer_code"=>$farmer->respondent_id,"form_id"=>$farmid->id,"form_translation_id"=>$bundle->form_translation_id
+                     ,"data"=>json_encode($answers));
 
                  //$FIDS[] =array('form_details_'.$farmid->id=>$answers);
              }
@@ -145,8 +150,8 @@ class SynchDownController extends Controller
                  $p_d_c['age_c'] = $plot_sort[0]['age_c'];
                  $p_d_c['external_id_c'] = $plot_sort[0]['external_id_c'];
                  $p_d_c["farmer_code"] = $farmer->respondent_id;
-                 $p_d_c["data"] = $p_dm_oa;
-                 $plot_dm_ao_all [] = ['plot_info' => $p_d_c];
+                 $p_d_c["data"] = json_encode($p_dm_oa);
+                 $plot_dm_ao_all[] = array($p_d_c);
              }
              $data[] = ["farmer"=>$static_farmer_build,'plot_details'=>$plot_dm_ao_all,'forms'=>$FIDS];
          }
