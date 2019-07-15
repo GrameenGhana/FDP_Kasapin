@@ -52,7 +52,9 @@ class AdminLevelController extends APIcontroller
         $levels = HasAdminLevel::where('level',2)
         ->where('country_id',$country->id)->first();
 
-        $districts = CountryAdminLevel::where('type',$levels->name)->get();
+        $districts = CountryAdminLevel::where('type',$levels->name)
+            ->where('country_id',$country->id)->get();
+
         $dataBuilder = array();
 
         foreach( $districts as $district){
